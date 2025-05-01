@@ -1,7 +1,7 @@
 import React from "react";
 
 // rect router
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 // context
 import MyState from "./context/data/MyState";
@@ -20,6 +20,7 @@ import SingUp from "./pages/registration/singup/singup";
 import WishList from "./pages/wishList/WishList";
 import Shop from "./pages/shop/Shop";
 import Cart from "./pages/cart/Cart";
+import Deshboard from "./pages/Admin/deshboard/deshboard";
 
 
 
@@ -28,18 +29,32 @@ const App = () => {
     <MyState>
       <Routes>
         <Route path="/" element={<Home />} />
+
         <Route path="/about" element={<About />} />
+        
         <Route path="/contact" element={<Contact />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/nopage" element={<NoPage />} />
+
+        <Route path="/deshboard" element={<ForAdmin><Deshboard /></ForAdmin>} />
+
         <Route path="/privacy&terms" element={<PrivacyTerms/>} />
+
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-        <Route path="/profile" element={<Profile />} />
+
+        <Route path="/profile" element={<ForUser><Profile /></ForUser>} />
+
+        <Route path="/orders/:id" element={<ForUser><Orders /></ForUser>} />
+
         <Route path="/login" element={<Login />} />
+
         <Route path="/singup" element={<SingUp />} />
-        <Route path="/wishlist" element={<WishList />} />
+
+        <Route path="/wishlist" element={<ForUser><WishList /></ForUser>} />
+
         <Route path="/shop" element={<Shop />} />
+
         <Route path="/cart" element={<Cart />} />
+        
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </MyState>
   );
@@ -49,3 +64,39 @@ export default App;
 
 
 
+
+// protect routes
+
+// by user
+export const ForUser = ({ children }) => {
+  if (localStorage.getItem("user")) {
+    return children;
+  }
+  else {
+    return <Navigate to="/login" />;
+  }
+};
+
+
+// by editor
+export const ForEditor = ({ children }) => {
+  const Editor = JSON.parse(localStorage.getItem("user"));
+  if (Editor.user.rules === "editor") {
+    return children;
+  }
+  else {
+    return <Navigate to="/login" />;
+  }
+};
+
+
+// by admiin
+export const ForAdmin = ({ children }) => {
+  const Admin = JSON.parse(localStorage.getItem("user"));
+  if (Admin.user.rules === "admin") {
+    return children;
+  }
+  else {
+    return <Navigate to="/login" />;
+  }
+};

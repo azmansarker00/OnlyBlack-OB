@@ -1,9 +1,9 @@
 import React from 'react'
 
-const deshboard = () => {
+const Deshboard = () => {
   return (
     <div>deshboard</div>
   )
 }
 
-export default deshboard
+export default Deshboard
