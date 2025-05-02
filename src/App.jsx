@@ -34,7 +34,7 @@ const App = () => {
         
         <Route path="/contact" element={<Contact />} />
 
-        <Route path="/deshboard" element={<ForAdmin><Deshboard /></ForAdmin>} />
+        <Route path="/deshboard" element={<ForEditorOrAdmin><Deshboard /></ForEditorOrAdmin>} />
 
         <Route path="/privacy&terms" element={<PrivacyTerms/>} />
 
@@ -46,7 +46,7 @@ const App = () => {
 
         <Route path="/login" element={<Login />} />
 
-        <Route path="/singup" element={<SingUp />} />
+        <Route path="/signup" element={<SingUp />} />
 
         <Route path="/wishlist" element={<ForUser><WishList /></ForUser>} />
 
@@ -78,25 +78,12 @@ export const ForUser = ({ children }) => {
 };
 
 
-// by editor
-export const ForEditor = ({ children }) => {
-  const Editor = JSON.parse(localStorage.getItem("user"));
-  if (Editor.user.rules === "editor") {
+// by admin / editor
+export const ForEditorOrAdmin = ({ children }) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user && (user.user.email === "azmansarker861@gmail.com" || user.user.rules === "editor")) {
     return children;
-  }
-  else {
-    return <Navigate to="/login" />;
-  }
-};
-
-
-// by admiin
-export const ForAdmin = ({ children }) => {
-  const Admin = JSON.parse(localStorage.getItem("user"));
-  if (Admin.user.rules === "admin") {
-    return children;
-  }
-  else {
+  } else {
     return <Navigate to="/login" />;
   }
 };
