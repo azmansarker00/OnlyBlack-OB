@@ -21,8 +21,8 @@ import WishList from "./pages/wishList/WishList";
 import Shop from "./pages/shop/Shop";
 import Cart from "./pages/cart/Cart";
 import Deshboard from "./pages/Admin/deshboard/deshboard";
-
-
+import Productinfo from "./pages/product info/Product_info";
+import Settings from "./pages/settings/Settings";
 
 const App = () => {
   return (
@@ -30,30 +30,64 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
 
+        <Route path="/Home" element={<Home />} />
+
         <Route path="/about" element={<About />} />
-        
+
         <Route path="/contact" element={<Contact />} />
 
-        <Route path="/deshboard" element={<ForEditorOrAdmin><Deshboard /></ForEditorOrAdmin>} />
+        <Route
+          path="/deshboard"
+          element={
+            <ForEditorOrAdmin>
+              <Deshboard />
+            </ForEditorOrAdmin>
+          }
+        />
 
-        <Route path="/privacy&terms" element={<PrivacyTerms/>} />
+        <Route path="/settings" element={<Settings />} />
+
+        <Route path="/privacy&terms" element={<PrivacyTerms />} />
 
         <Route path="/privacypolicy" element={<PrivacyPolicy />} />
 
-        <Route path="/profile" element={<ForUser><Profile /></ForUser>} />
+        <Route
+          path="/profile"
+          element={
+            <ForUser>
+              <Profile />
+            </ForUser>
+          }
+        />
 
-        <Route path="/orders/:id" element={<ForUser><Orders /></ForUser>} />
+        <Route
+          path="/orders/:id"
+          element={
+            <ForUser>
+              <Orders />
+            </ForUser>
+          }
+        />
+
+        <Route path="/singlepage/:id" element={<Productinfo />} />
 
         <Route path="/login" element={<Login />} />
 
         <Route path="/signup" element={<SingUp />} />
 
-        <Route path="/wishlist" element={<ForUser><WishList /></ForUser>} />
+        <Route
+          path="/wishlist"
+          element={
+            <ForUser>
+              <WishList />
+            </ForUser>
+          }
+        />
 
         <Route path="/shop" element={<Shop />} />
 
         <Route path="/cart" element={<Cart />} />
-        
+
         <Route path="*" element={<NoPage />} />
       </Routes>
     </MyState>
@@ -62,26 +96,25 @@ const App = () => {
 
 export default App;
 
-
-
-
 // protect routes
 
 // by user
 export const ForUser = ({ children }) => {
   if (localStorage.getItem("user")) {
     return children;
-  }
-  else {
+  } else {
     return <Navigate to="/login" />;
   }
 };
 
-
 // by admin / editor
 export const ForEditorOrAdmin = ({ children }) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  if (user && (user.user.email === "azmansarker861@gmail.com" || user.user.rules === "editor")) {
+  if (
+    user &&
+    (user.user.email === "azmansarker861@gmail.com" ||
+      user.user.rules === "editor")
+  ) {
     return children;
   } else {
     return <Navigate to="/login" />;
