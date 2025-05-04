@@ -7,111 +7,111 @@ const product = [
     title: "Product 1",
     description: "Description for product 1",
     price: 100,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 2,
     title: "Product 2",
     description: "Description for product 2",
     price: 200,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for product 3",
     price: 300,
-    image: "https://m.media-amazon.com/images/I/71Zl-HCjVLL._AC_UY218_.jpg",
+    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
   },
 ];
 const Features = () => {
   return (
-    <div className="bg-dark py-10">
-      <h1 className="px-10 text-3xl font-bold text-white mt-10 mb-10">
+    <div className="bg-dark">
+      <h1 className="p-12 text-4xl font-bold text-gray-400 mb-10 UpSh text-center">
         Features
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4 sm:px-6 md:px-10 mx-auto">
@@ -123,7 +123,7 @@ const Features = () => {
             <img
               src={item.image}
               alt={item.title}
-              className="w-full h-65 object-cover mb-2 text-white rounded-xl"
+              className="w-full h-65 object-cover  mb-2 text-white rounded-xl"
             />
             <h2 className="text-xl font-semibold text-white">{item.title}</h2>
             <p className="text-white">{item.description}</p>
@@ -140,7 +140,7 @@ const Features = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-5 py-15">
         <Link
           to={"/shop"}
           className=" bg-gray-400 px-3 py-1 rounded-2xl cursor-pointer active:bg-gray-500 font-bold "

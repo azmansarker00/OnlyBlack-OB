@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <section class="bg-white lg:grid lg:h-screen lg:place-content-center dark:bg-black DownSh mt-1">
+    <section class="bg-white lg:grid lg:h-screen lg:place-content-center dark:bg-[#161616] mt-1">
       <div class="mx-auto w-screen max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
         <div class="mx-auto max-w-prose text-center">
           <h1 class="text-4xl  font-bold text-gray-200 sm:text-5xl">
