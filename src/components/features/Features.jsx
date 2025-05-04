@@ -123,7 +123,7 @@ const Features = () => {
             <img
               src={item.image}
               alt={item.title}
-              className="w-full h-65 object-cover  mb-2 text-white rounded-xl"
+              className="w-full h-65 object-center mb-2 text-white rounded-xl"
             />
             <h2 className="text-xl font-semibold text-white">{item.title}</h2>
             <p className="text-white">{item.description}</p>

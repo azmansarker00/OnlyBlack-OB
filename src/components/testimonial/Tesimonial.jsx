@@ -5,7 +5,7 @@ const Testimonials = () => {
     <div className="bg-[#161616] text-gray-100 sm:px-8 py-12 UpSh">
       <div className="text-center w-full">
         <svg
-          className="text-gray-100 h-8 mx-auto"
+          className="text-gray-400 h-8 mx-auto"
           fill="currentColor"
           viewBox="0 0 150 29"
           xmlns="http://www.w3.org/2000/svg"
@@ -28,11 +28,11 @@ const Testimonials = () => {
         ></div>
 
         <div className="relative">
-          <h2 className="text-center text-gray-800 text-4xl lg:text-5xl font-bold leading-tight">
+          <h2 className="text-center text-gray-400 text-4xl lg:text-5xl font-bold leading-tight">
             Testimonials
           </h2>
-          <div className="my-4 mx-auto w-12 h-2 border-4 border-indigo-500"></div>
-          <p className="text-center text-gray-700 font-light">
+          <div className="my-4 mx-auto w-12 h-2 border-4 border-gray-500"></div>
+          <p className="text-center text-gray-400 font-light">
             Here are what some of our amazing customers are saying ...
           </p>
 

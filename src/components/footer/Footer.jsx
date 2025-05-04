@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <div className="UpSh">
       <div class="w-full min-h-screen flex items-center justify-center bg-black">
-        <div class="md:w-2/3 w-full px-4 text-white flex flex-col">
+        <div class="md:w-2/3 w-full px-4 text-gray-200 flex flex-col">
           <div class="w-full text-7xl font-bold">
             <h1 class="w-full md:w-2/3">How can we help you. get in touch</h1>
           </div>
@@ -14,9 +15,12 @@ const Footer = () => {
               question an uncited claim. If your work has been tagged
             </p>
             <div class="w-44 pt-6 md:pt-0">
-              <a class="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center">
+              <Link
+                to={"/contact"}
+                class="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center"
+              >
                 Contact US
-              </a>
+              </Link>
             </div>
           </div>
           <div class="flex flex-col">
@@ -50,23 +54,34 @@ const Footer = () => {
                   </text>
                 </svg>
               </div>
-              <a class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">
+              <Link
+                to={"/about"}
+                class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
+              >
                 About
-              </a>
-              <a class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">
+              </Link>
+              <Link
+                to={"/services"}
+                class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
+              >
                 Services
-              </a>
-              <a class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">
+              </Link>
+              <Link
+                to={"/whyus"}
+                class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
+              >
                 Why us
-              </a>
-              <a class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase">
+              </Link>
+              <Link
+                to={"/contact"}
+                class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
+              >
                 Contact
-              </a>
+              </Link>
               <div class="flex flex-row space-x-8 items-center justify-between">
                 <a>
                   <svg
-                    width="6"
-                    height="12"
+                    className="w-2.5 cursor-pointer"
                     viewBox="0 0 6 12"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +94,7 @@ const Footer = () => {
                 </a>
                 <a>
                   <svg
-                    width="12"
-                    height="13"
+                    className="w-5 cursor-pointer"
                     viewBox="0 0 12 13"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -101,8 +115,7 @@ const Footer = () => {
                 </a>
                 <a href="https://www.youtube.com/channel/UCjtCbnkIaiCJgj13sEZ9iqw">
                   <svg
-                    width="13"
-                    height="9"
+                    className="w-6 cursor-pointer"
                     viewBox="0 0 13 9"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +129,7 @@ const Footer = () => {
               </div>
             </div>
             <hr class="border-gray-600" />
-            <p class="w-full text-center my-12 text-gray-600">
+            <p class="w-full text-center mt-6 text-gray-600">
               Copyright © 2025 OnlyBlack
             </p>
           </div>

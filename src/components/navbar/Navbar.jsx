@@ -247,7 +247,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden mt-2 space-y-5">
+          <div className="lg:hidden mt-2 space-y-5 list-none">
             {[
               "Home",
               "Shop",
