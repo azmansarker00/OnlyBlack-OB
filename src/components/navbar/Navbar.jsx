@@ -358,8 +358,13 @@ const Navbar = () => {
                 <div className="flex items-center gap-2 text-gray-400 hover:text-gray-500 cursor-pointer">
                   <MdLibraryAddCheck /> Whishlist
                 </div>
-                <div className="flex items-center gap-2 text-gray-400 hover:text-gray-500 cursor-pointer">
-                  <HiShoppingCart /> Cart
+                <div>
+                  <button className="text-red-600 absolute top-0 right-0 bg-white rounded-full p-1 w-10 h-">
+                    5
+                  </button>
+                  <div className="flex items-center gap-2 text-gray-400 hover:text-gray-500 cursor-pointer">
+                    <HiShoppingCart /> Cart
+                  </div>
                 </div>
                 <div
                   className="flex items-center gap-2 text-gray-400 hover:text-gray-500 cursor-pointer"

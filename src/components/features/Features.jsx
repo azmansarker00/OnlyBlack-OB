@@ -1,151 +1,119 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const product = [
+const products = [
   {
     id: 1,
-    title: "Product 1",
-    description: "Description for product 1",
-    price: 100,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
+    title: "Quant Olap Shirts",
+    image: "https://i.imgur.com/QpjAiHq.jpg",
+    price: 13.99,
+    originalPrice: 20.99,
+    description:
+      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
+    rating: 4,
+    reviews: 310,
   },
   {
     id: 2,
-    title: "Product 2",
-    description: "Description for product 2",
-    price: 200,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
+    title: "Quant Trident Shirts",
+    image: "https://i.imgur.com/JvPeqEF.jpg",
+    price: 14.99,
+    originalPrice: 20.99,
+    description:
+      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
+    rating: 4,
+    reviews: 310,
   },
   {
     id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
+    title: "Quant Ruybi Shirts",
+    image: "https://i.imgur.com/Bf4dIaN.jpg",
+    price: 13.99,
+    originalPrice: 20.99,
+    description:
+      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
+    rating: 4,
+    reviews: 123,
   },
   {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
-  },
-  {
-    id: 3,
-    title: "Product 3",
-    description: "Description for product 3",
-    price: 300,
-    image: "https://m.media-amazon.com/images/I/31WY58YOvJL._AC_.jpg",
+    id: 4,
+    title: "Quant Tinor Shirts",
+    image: "https://i.imgur.com/HO8e9b8.jpg",
+    price: 15.99,
+    originalPrice: 21.99,
+    description:
+      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
+    rating: 4,
+    reviews: 110,
   },
 ];
+
 const Features = () => {
   return (
-    <div className="bg-dark">
+    <div className="bg-dark min-h-screen pb-10">
       <h1 className="p-12 text-4xl font-bold text-gray-400 mb-10 UpSh text-center">
         Features
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4 sm:px-6 md:px-10 mx-auto">
-        {product.slice(0, 10).map((item) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-6 px-4 sm:px-6 md:px-10">
+        {products.map((item) => (
           <div
             key={item.id}
-            className="border p-4 shadow-lg bg-[#161616] border-[#353535] mx-auto rounded-2xl"
+            className="flex flex-col md:flex-row gap-4 bg-[#161616] border border-[#353535] rounded-2xl p-4 shadow-lg"
           >
             <img
               src={item.image}
               alt={item.title}
-              className="w-full h-65 object-center mb-2 text-white rounded-xl"
+              className="w-full md:w-48 h-48 object-cover rounded-xl"
             />
-            <h2 className="text-xl font-semibold text-white">{item.title}</h2>
-            <p className="text-white">{item.description}</p>
-            <p className="text-lg font-bold text-white">৳ {item.price}</p>
-
-            <div className="flex items-center mt-4">
-              <button className="bg-gray-400 active:bg-gray-500 p-2 rounded-2xl cursor-pointer mr-3">
-                Add to Wishlist
-              </button>
-              <button className="bg-gray-500 active:bg-gray-400 p-2 rounded-2xl cursor-pointer">
-                Add to Cart
-              </button>
+            <div className="flex flex-col justify-between flex-grow">
+              <div>
+                <h2 className="text-xl font-bold text-white">{item.title}</h2>
+                <div className="flex items-center text-yellow-400 mb-1">
+                  {Array.from({ length: item.rating }, (_, i) => (
+                    <i key={i} className="fa fa-star mr-1" />
+                  ))}
+                  <span className="text-sm text-gray-300 ml-1">
+                    ({item.reviews})
+                  </span>
+                </div>
+                <p className="text-gray-300 text-sm mb-2 whitespace-pre-line">
+                  {item.description}
+                </p>
+              </div>
+              <div>
+                <div className="flex items-center space-x-3 mb-1">
+                  <h4 className="text-lg font-bold text-white">
+                    TK {item.price}
+                  </h4>
+                  <span className="line-through text-sm text-gray-400">
+                    TK {item.originalPrice}
+                  </span>
+                </div>
+                <p className="text-green-400 text-sm mb-3 line-through">
+                  Free shipping
+                </p>
+                <div className="flex items-center gap-3">
+                  <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                    Details
+                  </button>
+                  <button className="bg-gray-500 active:bg-gray-400 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                    Add to Wishlist
+                  </button>
+                  <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-5 py-15">
+      <div className="flex justify-center mt-10">
         <Link
           to={"/shop"}
-          className=" bg-gray-400 px-3 py-1 rounded-2xl cursor-pointer active:bg-gray-500 font-bold "
+          className="bg-gray-400 px-4 py-2 w-80 text-center rounded-md active:bg-gray-500 font-bold text-black"
         >
-          All Product...
+          All Products...
         </Link>
       </div>
     </div>

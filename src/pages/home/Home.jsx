@@ -3,7 +3,6 @@ import Layout from "../../components/layout/Layout";
 import Features from "../../components/features/Features";
 import Hero from "../../components/hero/Hero";
 import Testimonials from "../../components/testimonial/Tesimonial";
-import Faqs from "../../components/faqs/Faqs";
 
 const Home = () => {
   return (
@@ -11,7 +10,6 @@ const Home = () => {
       <Hero />
       <Features />
       <Testimonials />
-      <Faqs />
     </Layout>
   );
 };
