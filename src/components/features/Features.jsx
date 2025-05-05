@@ -8,9 +8,10 @@ const products = [
     image: "https://i.imgur.com/QpjAiHq.jpg",
     price: 13.99,
     originalPrice: 20.99,
+    category: "Shirts",
     description:
       "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 4,
+    rating: 1,
     reviews: 310,
   },
   {
@@ -19,17 +20,19 @@ const products = [
     image: "https://i.imgur.com/JvPeqEF.jpg",
     price: 14.99,
     originalPrice: 20.99,
+    category: "Shirts",
     description:
       "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 4,
+    rating: 5,
     reviews: 310,
   },
   {
     id: 3,
-    title: "Quant Ruybi Shirts",
+    title: "Quant Ruybi T-Shirts",
     image: "https://i.imgur.com/Bf4dIaN.jpg",
     price: 13.99,
     originalPrice: 20.99,
+    category: "T-Shirts",
     description:
       "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
     rating: 4,
@@ -37,14 +40,28 @@ const products = [
   },
   {
     id: 4,
-    title: "Quant Tinor Shirts",
+    title: "Quant Tinor Pants",
     image: "https://i.imgur.com/HO8e9b8.jpg",
     price: 15.99,
     originalPrice: 21.99,
+    category: "Pants",
     description:
       "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 4,
+    rating: 9.5,
     reviews: 110,
+  },
+  {
+    id: 5,
+    title: "Quant Tinor So close. Not quite the 32/28 I'm looking for.",
+    image:
+      "https://i.imgur.com/f9Q8oDh_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    price: 17.77,
+    originalPrice: 17.77,
+    category: "Cloths",
+    description:
+      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
+    rating: 3,
+    reviews: 10,
   },
 ];
 
@@ -55,7 +72,7 @@ const Features = () => {
         Features
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-6 px-4 sm:px-6 md:px-10">
-        {products.map((item) => (
+        {products.slice(0.6).map((item) => (
           <div
             key={item.id}
             className="flex flex-col md:flex-row gap-4 bg-[#161616] border border-[#353535] rounded-2xl p-4 shadow-lg"
@@ -72,8 +89,12 @@ const Features = () => {
                   {Array.from({ length: item.rating }, (_, i) => (
                     <i key={i} className="fa fa-star mr-1" />
                   ))}
-                  <span className="text-sm text-gray-300 ml-1">
-                    ({item.reviews})
+                  <span className="text-sm text-red-500 ml-1">
+                    Rating 10/{item.rating}
+                  </span>
+                  <span className="text-sm text-gray-400 ml-1">-</span>
+                  <span className="text-sm text-yellow-600 ml-1">
+                    Reviews({item.reviews})
                   </span>
                 </div>
                 <p className="text-gray-300 text-sm mb-2 whitespace-pre-line">
@@ -92,8 +113,13 @@ const Features = () => {
                 <p className="text-green-400 text-sm mb-3 line-through">
                   Free shipping
                 </p>
-                <div className="flex items-center gap-3">
-                  <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <button
+                    onClick={() =>
+                      (window.location.href = `/singlepage/${item.id}`)
+                    }
+                    className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl"
+                  >
                     Details
                   </button>
                   <button className="bg-gray-500 active:bg-gray-400 cursor-pointer text-black px-3 py-1 rounded-2xl">
@@ -111,7 +137,7 @@ const Features = () => {
       <div className="flex justify-center mt-10">
         <Link
           to={"/shop"}
-          className="bg-gray-400 px-4 py-2 w-80 text-center rounded-md active:bg-gray-500 font-bold text-black"
+          className="bg-[#161616] text-white border border-gray-600 px-4 py-2 rounded-2xl focus:outline-none w-80 text-center  active:bg-gray-500 font-bold "
         >
           All Products...
         </Link>

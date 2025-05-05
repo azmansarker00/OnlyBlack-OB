@@ -9,11 +9,11 @@ const productsData = [
     image: "https://i.imgur.com/QpjAiHq.jpg",
     price: 13.99,
     originalPrice: 20.99,
+    category: "Shirts",
     description:
       "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 4,
+    rating: 1,
     reviews: 310,
-    category: "Shirts",
   },
   {
     id: 2,
@@ -21,54 +21,68 @@ const productsData = [
     image: "https://i.imgur.com/JvPeqEF.jpg",
     price: 14.99,
     originalPrice: 20.99,
+    category: "Shirts",
     description:
       "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 4,
+    rating: 5,
     reviews: 310,
-    category: "Shirts",
   },
   {
     id: 3,
-    title: "Quant Ruybi Shirts",
+    title: "Quant Ruybi T-Shirts",
     image: "https://i.imgur.com/Bf4dIaN.jpg",
     price: 13.99,
     originalPrice: 20.99,
+    category: "T-Shirts",
     description:
       "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
     rating: 4,
     reviews: 123,
-    category: "Shirts",
   },
   {
     id: 4,
-    title: "Quant Tinor Shirts",
+    title: "Quant Tinor Pants",
     image: "https://i.imgur.com/HO8e9b8.jpg",
     price: 15.99,
     originalPrice: 21.99,
+    category: "Pants",
     description:
       "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 4,
+    rating: 9.5,
     reviews: 110,
-    category: "Shirts",
+  },
+  {
+    id: 5,
+    title: "Quant Tinor So close. Not quite the 32/28 I'm looking for.",
+    image:
+      "https://i.imgur.com/f9Q8oDh_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    price: 17.77,
+    originalPrice: 17.77,
+    category: "Cloths",
+    description:
+      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
+    rating: 3,
+    reviews: 10,
   },
 ];
 
 const Shop = () => {
-  const [category, setCategory] = useState("All");
-
-  const availableCategories = [
-    "All",
-    ...new Set(productsData.map((item) => item.category)),
-  ];
-
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("default");
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const filteredProducts = productsData
-    .filter(
-      (item) =>
-        (category === "All" || item.category === category) &&
-        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // Get unique categories based on current filtered list
+  const searchFiltered = productsData.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const uniqueCategories = [
+    ...new Set(searchFiltered.map((product) => product.category)),
+  ];
+
+  const filteredProducts = searchFiltered
+    .filter((item) =>
+      selectedCategory === "all" ? true : item.category === selectedCategory
     )
     .sort((a, b) => {
       if (filter === "low") return a.price - b.price;
@@ -83,15 +97,15 @@ const Shop = () => {
           Shop
         </h1>
 
-        {/* Search + Filter */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+        {/* Search + Filter + Category */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-8">
           <div className="relative w-full md:w-1/2 text-gray-600">
             <input
               type="text"
               placeholder="Search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-white h-10 w-full px-5 pr-10 rounded-full text-sm focus:outline-none"
+              className="bg-[#161616] h-10 w-full px-5 pr-10 rounded-full text-sm focus:outline-none placeholder:text-white"
             />
             <button
               type="submit"
@@ -99,7 +113,7 @@ const Shop = () => {
               aria-label="Search"
             >
               <svg
-                className="h-4 w-4 fill-current"
+                className="h-4 w-4 fill-current text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 56.966 56.966"
                 width="512"
@@ -107,17 +121,30 @@ const Shop = () => {
               >
                 <path
                   d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786
-                    c0-12.682-10.318-23-23-23s-23,10.318-23,23s10.318,23,23,23
-                    c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208
-                    c0.571,0.593,1.339,0.92,2.162,0.92
-                    c0.779,0,1.518-0.297,2.079-0.837
-                    C56.255,54.982,56.293,53.08,55.146,51.887z
-                    M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17
-                    s-17-7.626-17-17S14.61,6,23.984,6z"
+                  c0-12.682-10.318-23-23-23s-23,10.318-23,23s10.318,23,23,23
+                  c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208
+                  c0.571,0.593,1.339,0.92,2.162,0.92
+                  c0.779,0,1.518-0.297,2.079-0.837
+                  C56.255,54.982,56.293,53.08,55.146,51.887z
+                  M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17
+                  s-17-7.626-17-17S14.61,6,23.984,6z"
                 />
               </svg>
             </button>
           </div>
+
+          <select
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            value={selectedCategory}
+            className="bg-[#161616] text-white border border-gray-600 px-4 py-2 rounded-2xl focus:outline-none"
+          >
+            <option value="all">All Categories</option>
+            {uniqueCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
 
           <select
             onChange={(e) => setFilter(e.target.value)}
@@ -149,8 +176,12 @@ const Shop = () => {
                     {Array.from({ length: item.rating }, (_, i) => (
                       <i key={i} className="fa fa-star mr-1" />
                     ))}
-                    <span className="text-sm text-gray-300 ml-1">
-                      ({item.reviews})
+                    <span className="text-sm text-red-500 ml-1">
+                      Rating 10/{item.rating}
+                    </span>
+                    <span className="text-sm text-gray-400 ml-1">-</span>
+                    <span className="text-sm text-yellow-600 ml-1">
+                      Reviews({item.reviews})
                     </span>
                   </div>
                   <p className="text-gray-300 text-sm mb-2 whitespace-pre-line">
@@ -166,8 +197,15 @@ const Shop = () => {
                       TK {item.originalPrice}
                     </span>
                   </div>
-                  <p className="text-green-400 text-sm mb-3">Free shipping</p>
-                  <div className="flex items-center gap-3 flex-wrap">
+                  <p className="text-green-400 text-sm mb-3 line-through">
+                    Free shipping
+                  </p>
+                  <div
+                    onClick={() =>
+                      (window.location.href = `/singlepage/${item.id}`)
+                    }
+                    className="flex items-center gap-3 flex-wrap"
+                  >
                     <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
                       Details
                     </button>
