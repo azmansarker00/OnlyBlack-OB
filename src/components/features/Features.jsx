@@ -63,6 +63,19 @@ const products = [
     rating: 3,
     reviews: 10,
   },
+  {
+    id: 6,
+    title: "Quant Tinor So",
+    image:
+      "https://i.imgur.com/f9Q8oDh_d.webp?maxwidth=520&shape=thumb&fidelity=high",
+    price: 18.77,
+    originalPrice: 17.77,
+    category: "Cloths",
+    description:
+      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
+    rating: 3,
+    reviews: 10,
+  },
 ];
 
 const Features = () => {
@@ -72,7 +85,7 @@ const Features = () => {
         Features
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-6 px-4 sm:px-6 md:px-10">
-        {products.slice(0.6).map((item) => (
+        {products.slice(0, 6).map((item) => (
           <div
             key={item.id}
             className="flex flex-col md:flex-row gap-4 bg-[#161616] border border-[#353535] rounded-2xl p-4 shadow-lg"

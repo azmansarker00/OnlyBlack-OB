@@ -232,13 +232,13 @@ const Productinfo = () => {
               onClick={handleAddToWishlist}
               className="bg-gray-500 cursor-pointer text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-300 transition"
             >
-              Add to Wishlist
+              Add to Cart
             </button>
             <button
               onClick={handleAddToCart}
               className="bg-gray-500 cursor-pointer text-black ml-5 font-semibold px-6 py-2 rounded-lg hover:bg-gray-300 transition"
             >
-              Add to Cart
+              Buy now
             </button>
           </div>
         </div>

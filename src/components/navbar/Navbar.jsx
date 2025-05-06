@@ -8,6 +8,7 @@ import { RiMenu3Line } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { IoIosSettings } from "react-icons/io";
 import { RiUserSettingsLine } from "react-icons/ri";
+import { FaHeart } from "react-icons/fa";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -186,9 +187,9 @@ const Navbar = () => {
           {/* Right-side */}
           {user ? (
             <div className="hidden lg:flex items-center space-x-6">
-              <MdLibraryAddCheck
+              <FaHeart
                 title="Wishlist"
-                className="text-gray-400 hover:text-gray-500 text-2xl cursor-pointer"
+                className="text-gray-400 hover:text-gray-500 text-xl cursor-pointer"
               />
               <HiShoppingCart
                 title="Cart"
@@ -359,9 +360,6 @@ const Navbar = () => {
                   <MdLibraryAddCheck /> Whishlist
                 </div>
                 <div>
-                  <button className="text-red-600 absolute top-0 right-0 bg-white rounded-full p-1 w-10 h-">
-                    5
-                  </button>
                   <div className="flex items-center gap-2 text-gray-400 hover:text-gray-500 cursor-pointer">
                     <HiShoppingCart /> Cart
                   </div>
