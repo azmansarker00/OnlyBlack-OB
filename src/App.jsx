@@ -23,6 +23,8 @@ import Cart from "./pages/cart/Cart";
 import Deshboard from "./pages/Admin/deshboard/deshboard";
 import Productinfo from "./pages/product info/Product_info";
 import Settings from "./pages/settings/Settings";
+import Services from "./pages/services/services";
+import Wishlist from "./pages/wishList/WishList";
 
 const App = () => {
   return (
@@ -35,6 +37,8 @@ const App = () => {
         <Route path="/about" element={<About />} />
 
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="/services" element={<Services />} />
 
         <Route
           path="/deshboard"
@@ -85,6 +89,8 @@ const App = () => {
         />
 
         <Route path="/shop" element={<Shop />} />
+
+        <Route path="/wishlist" element={<Wishlist />} />
 
         <Route path="/cart" element={<Cart />} />
 

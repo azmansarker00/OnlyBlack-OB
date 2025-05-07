@@ -181,6 +181,12 @@ const Productinfo = () => {
     window.location.reload(); // Refresh the page
   };
 
+  const addToWishlist = (product) => {
+    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    wishlist.push(product);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  };
+
   return (
     <Layout>
       <div className="max-w-6xl mx-auto p-4">
@@ -201,7 +207,10 @@ const Productinfo = () => {
                 <h2 className="text-2xl font-bold text-gray-400">
                   {product.title}
                 </h2>
-                <button className="text-gray-500 hover:text-red-500">
+                <button
+                  onClick={addToWishlist}
+                  className="text-gray-500 hover:text-red-500"
+                >
                   <FaHeart />
                 </button>
               </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
+import { motion, AnimatePresence } from "framer-motion";
 
 const productsData = [
   {
@@ -71,7 +72,6 @@ const Shop = () => {
   const [filter, setFilter] = useState("default");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
-  // Get unique categories based on current filtered list
   const searchFiltered = productsData.filter((item) =>
     item.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -116,8 +116,6 @@ const Shop = () => {
                 className="h-4 w-4 fill-current text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 56.966 56.966"
-                width="512"
-                height="512"
               >
                 <path
                   d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786
@@ -159,67 +157,76 @@ const Shop = () => {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-6">
-          {filteredProducts.map((item) => (
-            <div
-              key={item.id}
-              className="flex flex-col md:flex-row gap-4 bg-[#161616] border border-[#353535] rounded-2xl p-4 shadow-lg"
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full md:w-48 h-48 object-cover rounded-xl"
-              />
-              <div className="flex flex-col justify-between flex-grow">
-                <div>
-                  <h2 className="text-xl font-bold text-white">{item.title}</h2>
-                  <div className="flex items-center text-yellow-400 mb-1">
-                    {Array.from({ length: item.rating }, (_, i) => (
-                      <i key={i} className="fa fa-star mr-1" />
-                    ))}
-                    <span className="text-sm text-red-500 ml-1">
-                      Rating 10/{item.rating}
-                    </span>
-                    <span className="text-sm text-gray-400 ml-1">-</span>
-                    <span className="text-sm text-yellow-600 ml-1">
-                      Reviews({item.reviews})
-                    </span>
+          <AnimatePresence mode="popLayout">
+            {filteredProducts.map((item) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="flex flex-col md:flex-row gap-4 bg-[#161616] border border-[#353535] rounded-2xl p-4 shadow-lg"
+              >
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full md:w-48 h-48 object-cover rounded-xl"
+                />
+                <div className="flex flex-col justify-between flex-grow">
+                  <div>
+                    <h2 className="text-xl font-bold text-white">
+                      {item.title}
+                    </h2>
+                    <div className="flex items-center text-yellow-400 mb-1">
+                      {Array.from({ length: item.rating }, (_, i) => (
+                        <i key={i} className="fa fa-star mr-1" />
+                      ))}
+                      <span className="text-sm text-red-500 ml-1">
+                        Rating 10/{item.rating}
+                      </span>
+                      <span className="text-sm text-gray-400 ml-1">-</span>
+                      <span className="text-sm text-yellow-600 ml-1">
+                        Reviews({item.reviews})
+                      </span>
+                    </div>
+                    <p className="text-gray-300 text-sm mb-2 whitespace-pre-line">
+                      {item.description}
+                    </p>
                   </div>
-                  <p className="text-gray-300 text-sm mb-2 whitespace-pre-line">
-                    {item.description}
-                  </p>
+                  <div>
+                    <div className="flex items-center space-x-3 mb-1">
+                      <h4 className="text-lg font-bold text-white">
+                        TK {item.price}
+                      </h4>
+                      <span className="line-through text-sm text-gray-400">
+                        TK {item.originalPrice}
+                      </span>
+                    </div>
+                    <p className="text-green-400 text-sm mb-3 line-through">
+                      Free shipping
+                    </p>
+                    <div
+                      onClick={() =>
+                        (window.location.href = `/singlepage/${item.id}`)
+                      }
+                      className="flex items-center gap-3 flex-wrap"
+                    >
+                      <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                        Details
+                      </button>
+                      <button className="bg-gray-500 active:bg-gray-400 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                        Add to Wishlist
+                      </button>
+                      <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <div className="flex items-center space-x-3 mb-1">
-                    <h4 className="text-lg font-bold text-white">
-                      TK {item.price}
-                    </h4>
-                    <span className="line-through text-sm text-gray-400">
-                      TK {item.originalPrice}
-                    </span>
-                  </div>
-                  <p className="text-green-400 text-sm mb-3 line-through">
-                    Free shipping
-                  </p>
-                  <div
-                    onClick={() =>
-                      (window.location.href = `/singlepage/${item.id}`)
-                    }
-                    className="flex items-center gap-3 flex-wrap"
-                  >
-                    <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                      Details
-                    </button>
-                    <button className="bg-gray-500 active:bg-gray-400 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                      Add to Wishlist
-                    </button>
-                    <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
     </Layout>
