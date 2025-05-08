@@ -172,7 +172,7 @@ const Navbar = () => {
               return (
                 <li key={idx}>
                   <Link
-                    to={`/${item.toLowerCase()}`}
+                    to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                     className="text-sm text-gray-400 hover:text-gray-500 flex items-center transition-all duration-300"
                     title={item}
                   >
@@ -252,7 +252,7 @@ const Navbar = () => {
               (item, idx) => (
                 <li key={idx}>
                   <Link
-                    to={`/${item.toLowerCase()}`}
+                    to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
                     className="text-sm text-gray-400 hover:text-gray-500 py-2"
                   >
                     {item}
