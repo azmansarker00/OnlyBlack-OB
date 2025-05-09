@@ -40,6 +40,9 @@ const Dashboard = () => {
   const handleDelete = (id, type) => {
     alert(`Delete ${type} with ID: ${id}`);
   };
+  const handleupdate = (id, type) => {
+    alert(`Update ${type} with ID: ${id}`);
+  };
 
   const handleAddProduct = () => {
     alert("Redirecting to Add Product Form...");
@@ -118,7 +121,7 @@ const Dashboard = () => {
                 <td className="py-2 px-4">5★ (150)</td>
                 <td className="py-2 px-4">
                   <button
-                    onClick={() => handleDelete(product.id, "product")}
+                    onClick={() => handleupdate(product.id, "product")}
                     className="mr-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
                   >
                     Update
