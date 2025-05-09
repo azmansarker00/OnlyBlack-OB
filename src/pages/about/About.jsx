@@ -85,14 +85,14 @@ const About = () => {
               roof. Our curation is intentional, stylish, and deeply aesthetic.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-6 ">
               {aboutHighlights.map((item, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 + index * 0.15, duration: 0.4 }}
-                  className="p-4 rounded-xl bg-black bg-opacity-10 hover:bg-opacity-20 transition duration-300"
+                  className="p-4 rounded-xl bg-[#1e1e1e] bg-opacity-10 hover:bg-opacity-20 transition duration-300"
                 >
                   <h3 className="text-lg font-semibold mb-1 text-white">
                     {item.title}

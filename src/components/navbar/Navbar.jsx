@@ -9,6 +9,7 @@ import { RxCross2 } from "react-icons/rx";
 import { IoIosSettings } from "react-icons/io";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { FaHeart } from "react-icons/fa";
+import { CiLogin } from "react-icons/ci";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -87,7 +88,8 @@ const Navbar = () => {
               "About",
               "Services",
               "Contact",
-              ...(user?.user?.email === "azmansarker861@gmail.com"
+              ...(user?.user?.email === "azmansarker861@gmail.com" ||
+              user?.user?.email === "azmansarker028@gmail.com"
                 ? ["Deshboard"]
                 : []),
             ].map((item, idx) => {
@@ -234,12 +236,21 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link
-              to="/login"
-              className="hidden lg:inline-block text-gray-400 hover:text-gray-500 text-xl"
-            >
-              <CgProfile />
-            </Link>
+            <div>
+              <Link
+                to="/login"
+                className="hidden lg:inline-block mr-4 text-gray-400 hover:text-gray-500 text-xl"
+              >
+                Login
+              </Link>
+
+              <Link
+                to="/signup"
+                className="hidden lg:inline-block bg-[#1e1e1e] p-2 rounded-xl text-gray-400 hover:text-gray-500 text-xl"
+              >
+                Signup
+              </Link>
+            </div>
           )}
         </div>
       </div>

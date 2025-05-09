@@ -187,6 +187,8 @@ const Productinfo = () => {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   };
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Layout>
       <div className="max-w-6xl mx-auto p-4">
@@ -207,12 +209,20 @@ const Productinfo = () => {
                 <h2 className="text-2xl font-bold text-gray-400">
                   {product.title}
                 </h2>
-                <button
-                  onClick={addToWishlist}
-                  className="text-gray-500 hover:text-red-500"
-                >
-                  <FaHeart />
-                </button>
+                {user ? (
+                  <button
+                    onClick={addToWishlist}
+                    className="text-gray-500 hover:text-red-500"
+                  >
+                    <FaHeart />
+                  </button>
+                ) : (
+                  <button className="text-gray-500 hover:text-red-500">
+                    <Link to={"/login"}>
+                      <FaHeart />
+                    </Link>
+                  </button>
+                )}
               </div>
               <p className="text-gray-500">{product.description}</p>
               <div className="flex items-center space-x-1 text-yellow-500">
@@ -237,18 +247,29 @@ const Productinfo = () => {
             </div>
           </div>
           <div className="mt-6 flex justify-end">
-            <button
-              onClick={handleAddToWishlist}
-              className="bg-gray-500 cursor-pointer text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-300 transition"
-            >
-              Add to Cart
-            </button>
-            <button
-              onClick={handleAddToCart}
-              className="bg-gray-500 cursor-pointer text-black ml-5 font-semibold px-6 py-2 rounded-lg hover:bg-gray-300 transition"
-            >
-              Buy now
-            </button>
+            {user ? (
+              <button className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                Add to Cart
+              </button>
+            ) : (
+              <Link to="/login">
+                <button className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                  Add to Cart
+                </button>
+              </Link>
+            )}
+
+            {user ? (
+              <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                Buy now
+              </button>
+            ) : (
+              <Link to="/login">
+                <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                  Buy now
+                </button>
+              </Link>
+            )}
           </div>
         </div>
 

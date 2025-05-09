@@ -78,6 +78,8 @@ const products = [
   },
 ];
 
+const user = JSON.parse(localStorage.getItem("user"));
+
 const Features = () => {
   return (
     <div className="bg-dark min-h-screen pb-10">
@@ -138,9 +140,17 @@ const Features = () => {
                   <button className="bg-gray-500 active:bg-gray-400 cursor-pointer text-black px-3 py-1 rounded-2xl">
                     Add to Wishlist
                   </button>
-                  <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                    Add to Cart
-                  </button>
+                  {user ? (
+                    <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                      Add to Cart
+                    </button>
+                  ) : (
+                    <Link to="/login">
+                      <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                        Add to Cart
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

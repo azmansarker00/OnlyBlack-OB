@@ -90,6 +90,7 @@ const Shop = () => {
       return 0;
     });
 
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <Layout>
       <div className="bg-dark min-h-screen pb-10 px-4 sm:px-6 md:px-10">
@@ -206,21 +207,29 @@ const Shop = () => {
                     <p className="text-green-400 text-sm mb-3 line-through">
                       Free shipping
                     </p>
-                    <div
-                      onClick={() =>
-                        (window.location.href = `/singlepage/${item.id}`)
-                      }
-                      className="flex items-center gap-3 flex-wrap"
-                    >
-                      <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <button
+                        onClick={() =>
+                          (window.location.href = `/singlepage/${item.id}`)
+                        }
+                        className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl"
+                      >
                         Details
                       </button>
                       <button className="bg-gray-500 active:bg-gray-400 cursor-pointer text-black px-3 py-1 rounded-2xl">
                         Add to Wishlist
                       </button>
-                      <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                        Add to Cart
-                      </button>
+                      {user ? (
+                        <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                          Add to Cart
+                        </button>
+                      ) : (
+                        <Link to="/login">
+                          <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                            Add to Cart
+                          </button>
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>

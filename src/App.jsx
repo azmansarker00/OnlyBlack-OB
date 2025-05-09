@@ -20,7 +20,7 @@ import SingUp from "./pages/registration/singup/singup";
 import WishList from "./pages/wishList/WishList";
 import Shop from "./pages/shop/Shop";
 import Cart from "./pages/cart/Cart";
-import Deshboard from "./pages/Admin/deshboard/deshboard";
+import Deshboard from "./pages/Admin//deshboard/Deshboard";
 import Productinfo from "./pages/product info/Product_info";
 import Settings from "./pages/settings/Settings";
 import Services from "./pages/services/services";
@@ -117,7 +117,7 @@ export const ForEditorOrAdmin = ({ children }) => {
   if (
     user &&
     (user.user.email === "azmansarker861@gmail.com" ||
-      user.user.rules === "editor")
+      user.user.email === "azmansarker028@gmail.com")
   ) {
     return children;
   } else {

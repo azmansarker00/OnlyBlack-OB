@@ -4,6 +4,8 @@ import Layout from "../../../components/layout/Layout";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("users");
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const users = [
     {
       id: 1,
@@ -26,13 +28,11 @@ const Dashboard = () => {
   ];
 
   const products = [
-    // Example products
     { id: 1, name: "Product 1", price: "$100" },
     { id: 2, name: "Product 2", price: "$150" },
   ];
 
   const orders = [
-    // Example orders
     { id: 1, user: "Azman", product: "Product 1", status: "Shipped" },
     { id: 2, user: "Snigdho", product: "Product 2", status: "Pending" },
   ];
@@ -47,10 +47,16 @@ const Dashboard = () => {
 
   const renderTable = (data, type) => {
     if (type === "users") {
+      if (user?.user?.email !== "azmansarker861@gmail.com") {
+        return (
+          <p className="text-red-400">
+            You are not authorized to view this section.
+          </p>
+        );
+      }
+
       return (
-        <Table headers={["No.", "Name", "Email", "Date"]}>
-          {" "}
-          {/* Correct headers */}
+        <Table headers={["No.", "Name", "Email", "Date", "Role"]}>
           {data.map((user, inx) => (
             <tr
               key={user.id}
@@ -59,7 +65,14 @@ const Dashboard = () => {
               <td className="py-2 px-4">{inx + 1}</td>
               <td className="py-2 px-4">{user.name}</td>
               <td className="py-2 px-4">{user.email}</td>
-              <td className="py-2 px-4">{user.date}</td> {/* Date Column */}
+              <td className="py-2 px-4">{user.date}</td>
+              <td className="py-2 px-4">
+                <select className="bg-[#2a2a2a] cursor-pointer text-gray-400 rounded px-2 py-1">
+                  <option value="user">User</option>
+                  <option value="editor">Editor</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </td>
             </tr>
           ))}
         </Table>
@@ -106,7 +119,13 @@ const Dashboard = () => {
                 <td className="py-2 px-4">
                   <button
                     onClick={() => handleDelete(product.id, "product")}
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-all duration-300 cursor-pointer"
+                    className="mr-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
+                  >
+                    Update
+                  </button>
+                  <button
+                    onClick={() => handleDelete(product.id, "product")}
+                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-all duration-300"
                   >
                     Delete
                   </button>
