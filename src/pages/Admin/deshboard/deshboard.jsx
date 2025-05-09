@@ -1,31 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Layout from "../../../components/layout/Layout";
+import MyContext from "../../../context/data/MyContext";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("users");
+  const context = useContext(MyContext);
+  const { rules, handleRoleChange, user } = context;
+  const userRules = rules;
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  const users = [
-    {
-      id: 1,
-      name: "Azman",
-      email: "azman@example.com",
-      date: "2025-05-09",
-    },
-    {
-      id: 2,
-      name: "Snigdho",
-      email: "snigdho@example.com",
-      date: "2025-05-08",
-    },
-    {
-      id: 3,
-      name: "Bandhoby",
-      email: "bandhoby@example.com",
-      date: "2025-05-07",
-    },
-  ];
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [pendingRoleChange, setPendingRoleChange] = useState(null);
 
   const products = [
     { id: 1, name: "Product 1", price: "$100" },
@@ -40,6 +24,7 @@ const Dashboard = () => {
   const handleDelete = (id, type) => {
     alert(`Delete ${type} with ID: ${id}`);
   };
+
   const handleupdate = (id, type) => {
     alert(`Update ${type} with ID: ${id}`);
   };
@@ -48,9 +33,27 @@ const Dashboard = () => {
     alert("Redirecting to Add Product Form...");
   };
 
+  const requestRoleChange = (userId, newRole) => {
+    setPendingRoleChange({ userId, newRole });
+    setShowConfirmModal(true);
+  };
+
+  const confirmRoleChange = () => {
+    if (pendingRoleChange) {
+      handleRoleChange(pendingRoleChange.userId, pendingRoleChange.newRole);
+    }
+    setShowConfirmModal(false);
+    setPendingRoleChange(null);
+  };
+
+  const cancelRoleChange = () => {
+    setShowConfirmModal(false);
+    setPendingRoleChange(null);
+  };
+
   const renderTable = (data, type) => {
     if (type === "users") {
-      if (user?.user?.email !== "azmansarker861@gmail.com") {
+      if (userRules !== "admin") {
         return (
           <p className="text-red-400">
             You are not authorized to view this section.
@@ -60,7 +63,7 @@ const Dashboard = () => {
 
       return (
         <Table headers={["No.", "Name", "Email", "Date", "Role"]}>
-          {data.map((user, inx) => (
+          {user.map((user, inx) => (
             <tr
               key={user.id}
               className="hover:bg-[#1e1e1e] transition-all duration-300"
@@ -70,7 +73,11 @@ const Dashboard = () => {
               <td className="py-2 px-4">{user.email}</td>
               <td className="py-2 px-4">{user.date}</td>
               <td className="py-2 px-4">
-                <select className="bg-[#2a2a2a] cursor-pointer text-gray-400 rounded px-2 py-1">
+                <select
+                  className="bg-[#2a2a2a] cursor-pointer text-gray-400 rounded px-2 py-1"
+                  value={user.rules}
+                  onChange={(e) => requestRoleChange(user.id, e.target.value)}
+                >
                   <option value="user">User</option>
                   <option value="editor">Editor</option>
                   <option value="admin">Admin</option>
@@ -165,33 +172,35 @@ const Dashboard = () => {
         <h1 className="text-3xl font-bold mb-6 text-center animate-fade-in">
           OnlyBlack Dashboard
         </h1>
-
         <div className="flex flex-col lg:flex-row gap-6">
-          {/* Sidebar Tabs */}
           <div className="w-full lg:w-1/5 bg-[#1e1e1e] rounded-2xl p-4 shadow-md">
             <div className="flex flex-col gap-4">
-              {["users", "products", "orders"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`py-2 px-4 rounded-lg text-left font-medium transition-all duration-300 cursor-pointer
-                  ${
-                    activeTab === tab
-                      ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow"
-                      : "bg-[#2a2a2a] text-gray-400 hover:bg-[#333]"
-                  }`}
-                >
-                  {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                </button>
-              ))}
+              {["users", "products", "orders"].map((tab) => {
+                const label =
+                  tab === "users"
+                    ? `Users (${user.length})`
+                    : tab.charAt(0).toUpperCase() + tab.slice(1);
+                return (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`py-2 px-4 rounded-lg text-left font-medium transition-all duration-300 cursor-pointer ${
+                      activeTab === tab
+                        ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow"
+                        : "bg-[#2a2a2a] text-gray-400 hover:bg-[#333]"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Main Content */}
           <div className="w-full lg:w-4/5 bg-black rounded-2xl p-6 shadow-xl overflow-x-auto animate-fade-in">
             {renderTable(
               activeTab === "users"
-                ? users
+                ? user
                 : activeTab === "products"
                 ? products
                 : orders,
@@ -199,12 +208,36 @@ const Dashboard = () => {
             )}
           </div>
         </div>
+
+        {/* Confirmation Modal */}
+        {showConfirmModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-[#1e1e1e] p-6 rounded-xl text-center max-w-sm w-full shadow-lg">
+              <p className="text-white text-lg mb-4">
+                Are you sure you want to change this user's role?
+              </p>
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={cancelRoleChange}
+                  className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmRoleChange}
+                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );
 };
 
-// Reusable Table Component
 const Table = ({ headers, children }) => (
   <table className="min-w-full text-left text-sm text-gray-400">
     <thead className="bg-[#121212] text-gray-400 uppercase">

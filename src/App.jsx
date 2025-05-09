@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 // rect router
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -25,6 +25,9 @@ import Productinfo from "./pages/product info/Product_info";
 import Settings from "./pages/settings/Settings";
 import Services from "./pages/services/services";
 import Wishlist from "./pages/wishList/WishList";
+
+//
+import MyContext from "./context/data/MyContext";
 
 const App = () => {
   return (
@@ -102,7 +105,7 @@ export default App;
 
 // protect routes
 
-// by user
+// For unauthenticated users
 export const ForUser = ({ children }) => {
   if (localStorage.getItem("user")) {
     return children;
@@ -111,14 +114,12 @@ export const ForUser = ({ children }) => {
   }
 };
 
-// by admin / editor
+// By admin/editor roles
 export const ForEditorOrAdmin = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  if (
-    user &&
-    (user.user.email === "azmansarker861@gmail.com" ||
-      user.user.email === "azmansarker028@gmail.com")
-  ) {
+  const context = useContext(MyContext);
+  const { rules } = context;
+  const userRules = rules;
+  if (userRules && (userRules === "admin" || userRules === "editor")) {
     return children;
   } else {
     return <Navigate to="/login" />;
