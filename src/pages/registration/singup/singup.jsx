@@ -13,11 +13,30 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const getPasswordValidationErrors = (password) => {
+    const errors = [];
+
+    if (password.length < 8 || password.length > 25) {
+      errors.push("Password must be between 8 and 25 characters.");
+    }
+    if (!/[A-Z]/.test(password)) {
+      errors.push("Password must include at least one uppercase letter.");
+    }
+    if (!/[a-z]/.test(password)) {
+      errors.push("Password must include at least one lowercase letter.");
+    }
+    if (!/[0-9]/.test(password)) {
+      errors.push("Password must include at least one number.");
+    }
+
+    return errors;
+  };
+
   const signup = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    if (name === "" || number === "" || email === "" || password === "" || confirmPassword === "") {
+    if (!name || !number || !email || !password || !confirmPassword) {
       setLoading(false);
       return toast.error("All fields are required");
     }
@@ -25,6 +44,13 @@ function Signup() {
     if (password !== confirmPassword) {
       setLoading(false);
       return toast.error("Passwords do not match");
+    }
+
+    const passwordErrors = getPasswordValidationErrors(password);
+    if (passwordErrors.length > 0) {
+      setLoading(false);
+      passwordErrors.forEach((err) => toast.error(err));
+      return;
     }
 
     try {
@@ -67,7 +93,7 @@ function Signup() {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden px-4">
       <ToastContainer />
-      {/* Background gradient and glow */}
+      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-zinc-950 opacity-90 z-0" />
       <div className="absolute top-0 left-0 w-40 h-40 bg-purple-700 rounded-full blur-3xl opacity-30 animate-pulse" />
       <div className="absolute bottom-0 right-0 w-60 h-60 bg-indigo-700 rounded-full blur-3xl opacity-20 animate-pulse" />
@@ -78,7 +104,9 @@ function Signup() {
 
         <form onSubmit={signup} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Full Name
+            </label>
             <input
               type="text"
               value={name}
@@ -89,7 +117,9 @@ function Signup() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Phone Number</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Phone Number
+            </label>
             <input
               type="tel"
               value={number}
@@ -100,7 +130,9 @@ function Signup() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Email
+            </label>
             <input
               type="email"
               value={email}
@@ -111,7 +143,9 @@ function Signup() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Password
+            </label>
             <input
               type="password"
               value={password}
@@ -122,7 +156,9 @@ function Signup() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-1">Confirm Password</label>
+            <label className="block text-sm font-medium text-gray-300 mb-1">
+              Confirm Password
+            </label>
             <input
               type="password"
               value={confirmPassword}
@@ -137,9 +173,7 @@ function Signup() {
             className="w-full bg-purple-600 hover:bg-purple-700 transition-colors p-3 rounded-lg font-semibold flex justify-center items-center"
             disabled={loading}
           >
-            {loading ? 'Signing Up...' : (
-              'Sign Up'
-            )}
+            {loading ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
 

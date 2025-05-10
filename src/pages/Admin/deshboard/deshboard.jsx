@@ -184,10 +184,10 @@ const Dashboard = () => {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`py-2 px-4 rounded-lg text-left font-medium transition-all duration-300 cursor-pointer ${
+                    className={`w-full py-2 px-4 rounded-lg text-left font-medium transition-all duration-300 cursor-pointer border-2 ${
                       activeTab === tab
-                        ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow"
-                        : "bg-[#2a2a2a] text-gray-400 hover:bg-[#333]"
+                        ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow border-transparent"
+                        : "bg-[#2a2a2a] text-gray-400 hover:bg-[#333] border-transparent"
                     }`}
                   >
                     {label}
