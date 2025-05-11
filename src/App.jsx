@@ -103,7 +103,9 @@ const App = () => {
 
 export default App;
 
-// protect routes
+{
+  /*protect routes8*/
+}
 
 // For unauthenticated users
 export const ForUser = ({ children }) => {

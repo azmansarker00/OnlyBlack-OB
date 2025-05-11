@@ -84,7 +84,7 @@ const Features = () => {
   return (
     <div className="bg-dark min-h-screen pb-10">
       <h1 className="p-12 text-4xl font-bold text-gray-400 mb-10 UpSh text-center">
-        Features
+        Featured
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-6 px-4 sm:px-6 md:px-10">
         {products.slice(0, 6).map((item) => (
