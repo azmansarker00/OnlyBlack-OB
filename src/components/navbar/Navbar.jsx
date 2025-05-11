@@ -200,10 +200,12 @@ const Navbar = () => {
                   className="text-gray-400 hover:text-gray-500 text-xl cursor-pointer transition-all duration-300 ease-in-out"
                 />
               </Link>
-              <HiShoppingCart
-                title="Cart"
-                className="text-gray-400 hover:text-gray-500 text-2xl cursor-pointer transition-all duration-300 ease-in-out"
-              />
+              <Link to={"/cart"}>
+                <HiShoppingCart
+                  title="Cart"
+                  className="text-gray-400 hover:text-gray-500 text-2xl cursor-pointer transition-all duration-300 ease-in-out"
+                />
+              </Link>
               <div className="relative" ref={menuRef}>
                 <button
                   onClick={() => setOpen(!open)}

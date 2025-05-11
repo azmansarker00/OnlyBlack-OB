@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { auth } from "../../../firebase/FirebaseConfiq";
 import {
   signInWithEmailAndPassword,
@@ -72,7 +72,6 @@ function Login() {
 
   return (
     <div className="bg-black min-h-screen flex items-center justify-center relative overflow-hidden px-4">
-      <ToastContainer />
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-950 to-black opacity-90 z-0" />
       <div className="absolute top-0 left-0 w-40 h-40 bg-purple-700 rounded-full blur-3xl opacity-30 animate-pulse" />
       <div className="absolute bottom-0 right-0 w-60 h-60 bg-indigo-700 rounded-full blur-3xl opacity-20 animate-pulse" />

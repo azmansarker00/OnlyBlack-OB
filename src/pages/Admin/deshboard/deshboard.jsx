@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import Layout from "../../../components/layout/Layout";
 import MyContext from "../../../context/data/MyContext";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("users");
@@ -22,15 +23,15 @@ const Dashboard = () => {
   ];
 
   const handleDelete = (id, type) => {
-    alert(`Delete ${type} with ID: ${id}`);
+    toast.success(`Deleted ${type} with ID: ${id}`);
   };
 
   const handleupdate = (id, type) => {
-    alert(`Update ${type} with ID: ${id}`);
+    toast.info(`Update ${type} with ID: ${id}`);
   };
 
   const handleAddProduct = () => {
-    alert("Redirecting to Add Product Form...");
+    toast.info("Redirecting to Add Product Form...");
   };
 
   const requestRoleChange = (userId, newRole) => {
@@ -38,15 +39,24 @@ const Dashboard = () => {
     setShowConfirmModal(true);
   };
 
-  const confirmRoleChange = () => {
+  const confirmRoleChange = async () => {
     if (pendingRoleChange) {
-      handleRoleChange(pendingRoleChange.userId, pendingRoleChange.newRole);
+      try {
+        await handleRoleChange(
+          pendingRoleChange.userId,
+          pendingRoleChange.newRole
+        );
+        toast.success("User role updated successfully!");
+      } catch (error) {
+        toast.error("Failed to update user role.");
+      }
     }
     setShowConfirmModal(false);
     setPendingRoleChange(null);
   };
 
   const cancelRoleChange = () => {
+    toast.info("Cancelled role change.");
     setShowConfirmModal(false);
     setPendingRoleChange(null);
   };
@@ -71,7 +81,13 @@ const Dashboard = () => {
               <td className="py-2 px-4">{inx + 1}</td>
               <td className="py-2 px-4">{user.name}</td>
               <td className="py-2 px-4">{user.email}</td>
-              <td className="py-2 px-4">{user.date}</td>
+              <td className="py-2 px-4">
+                {user.time.toDate().toLocaleString("en-US", {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                })}
+              </td>
               <td className="py-2 px-4">
                 <select
                   className="bg-[#2a2a2a] cursor-pointer text-gray-400 rounded px-2 py-1"
@@ -117,7 +133,7 @@ const Dashboard = () => {
                 <td className="py-2 px-4">{inx + 1}</td>
                 <td className="py-2 px-4">
                   <img
-                    src="https://images.unsplash.com/photo-1696824711591-018c23ff9248?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fHRveSUyMGNhcnxlbnwwfHwwfHx8MA%3D%3D"
+                    src="https://images.unsplash.com/photo-1696824711591-018c23ff9248?w=400&auto=format&fit=crop&q=60"
                     alt={product.name}
                     className="w-12 h-12 rounded"
                   />

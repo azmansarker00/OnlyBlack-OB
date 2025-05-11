@@ -26,12 +26,16 @@ import Settings from "./pages/settings/Settings";
 import Services from "./pages/services/services";
 import Wishlist from "./pages/wishList/WishList";
 
-//
+//Context
 import MyContext from "./context/data/MyContext";
+
+// Toastify
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
     <MyState>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
 
