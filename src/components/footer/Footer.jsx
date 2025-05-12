@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="UpSh">
       <div class="w-full min-h-screen flex items-center justify-center bg-black">
-        <div class="md:w-2/3 w-full px-4 text-gray-200 flex flex-col">
+        <div class="md:w-2/3 w-full px-4 text-gray-300 flex flex-col">
           <div class="w-full text-7xl font-bold">
             <h1 class="w-full md:w-2/3">How can we help you. get in touch</h1>
           </div>
@@ -32,23 +32,22 @@ const Footer = () => {
                   viewBox="0 0 250 80"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <rect width="100%" height="100%" fill="black" />
+                  <rect />
                   <circle
                     cx="40"
                     cy="40"
                     r="15"
-                    stroke="white"
-                    stroke-width="10"
+                    stroke="gray"
+                    strokeWidth="10"
                     fill="none"
                   />
-                  <circle cx="40" cy="40" r="6" fill="white" />
                   <text
                     x="62"
                     y="50"
-                    fill="white"
-                    font-family="Helvetica, sans-serif"
-                    font-size="30"
-                    font-weight="bold"
+                    fill="gray"
+                    fontFamily="Helvetica, sans-serif"
+                    fontSize="30"
+                    fontWeight="bold"
                   >
                     nlyBlack
                   </text>

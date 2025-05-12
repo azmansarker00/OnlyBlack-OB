@@ -8,7 +8,7 @@ const Contact = () => {
       <div className="bg-[#161616] min-h-screen px-4 py-16 sm:px-6 lg:px-8 text-white font-sans animate-fade-in">
         <div className="max-w-4xl mx-auto">
           {/* Glowing Header */}
-          <h1 className="text-5xl font-extrabold text-center mb-4 bg-gradient-to-r from-gray-300 via-white to-gray-300 text-transparent bg-clip-text drop-shadow-lg">
+          <h1 className="text-5xl font-extrabold text-center mb-4 bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300 text-transparent bg-clip-text drop-shadow-lg">
             Get in Touch
           </h1>
           <p className="text-center text-gray-400 mb-12">

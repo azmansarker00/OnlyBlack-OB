@@ -184,7 +184,7 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-[#161616] text-white p-6">
+      <div className="min-h-screen bg-[#161616] text-gray-400 p-6">
         <h1 className="text-3xl font-bold mb-6 text-center animate-fade-in">
           OnlyBlack Dashboard
         </h1>
