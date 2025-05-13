@@ -7,6 +7,7 @@ import {
   getDocs,
   updateDoc,
   doc,
+  Timestamp,
 } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfiq";
 import { onAuthStateChanged } from "firebase/auth";
@@ -85,8 +86,23 @@ const MyState = (props) => {
     return () => unsubscribe();
   }, []);
 
+  // products
+  const [products, setProducts] = useState({
+    title: "",
+    price: "",
+    imageUrl: "",
+    category: "",
+    description: "",
+    time: Timestamp.now(),
+    date: new Date().toLocaleString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    }),
+  });
+
   return (
-    <MyContext.Provider value={{ rules, handleRoleChange, user }}>
+    <MyContext.Provider value={{ rules, handleRoleChange, user, products }}>
       {props.children}
     </MyContext.Provider>
   );

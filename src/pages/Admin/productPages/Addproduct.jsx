@@ -5,21 +5,7 @@ import Layout from "../../../components/layout/Layout";
 
 function AddProduct() {
   const context = useContext(myContext);
-  const { addProduct } = context;
-
-  const [products, setProducts] = useState({
-    title: "",
-    price: "",
-    imageUrl: "",
-    category: "",
-    description: "",
-    time: Timestamp.now(),
-    date: new Date().toLocaleString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    }),
-  });
+  const { products } = context;
 
   return (
     <Layout>
