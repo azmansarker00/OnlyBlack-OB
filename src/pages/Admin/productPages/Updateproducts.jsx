@@ -5,15 +5,7 @@ import Layout from "../../../components/layout/Layout";
 
 function Updateproducts() {
   const context = useContext(myContext);
-  const { addProduct } = context;
-
-  const [products, setProducts] = useState({
-    title: "",
-    price: "",
-    imageUrl: "",
-    category: "",
-    description: "",
-  });
+  const { products } = context;
 
   return (
     <Layout>
