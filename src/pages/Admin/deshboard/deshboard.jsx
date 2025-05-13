@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import Layout from "../../../components/layout/Layout";
 import MyContext from "../../../context/data/MyContext";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("users");
@@ -24,14 +25,6 @@ const Dashboard = () => {
 
   const handleDelete = (id, type) => {
     toast.success(`Deleted ${type} with ID: ${id}`);
-  };
-
-  const handleupdate = (id, type) => {
-    toast.info(`Update ${type} with ID: ${id}`);
-  };
-
-  const handleAddProduct = () => {
-    toast.info("Redirecting to Add Product Form...");
   };
 
   const requestRoleChange = (userId, newRole) => {
@@ -108,12 +101,11 @@ const Dashboard = () => {
     if (type === "products") {
       return (
         <div>
-          <button
-            onClick={handleAddProduct}
-            className="mb-4 px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl shadow hover:from-green-600 hover:to-green-700 transition-all duration-300 cursor-pointer"
-          >
-            + Add Product
-          </button>
+          <Link to={"/addproducts"}>
+            <button className="mb-4 px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl shadow hover:from-green-600 hover:to-green-700 transition-all duration-300 cursor-pointer">
+              + Add Product
+            </button>
+          </Link>
           <Table
             headers={[
               "No.",
@@ -143,12 +135,11 @@ const Dashboard = () => {
                 <td className="py-2 px-4">2025-05-07</td>
                 <td className="py-2 px-4">5★ (150)</td>
                 <td className="py-2 px-4">
-                  <button
-                    onClick={() => handleupdate(product.id, "product")}
-                    className="mr-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
-                  >
-                    Update
-                  </button>
+                  <Link to={"/updateproducts"}>
+                    <button className="mr-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300">
+                      Update
+                    </button>
+                  </Link>
                   <button
                     onClick={() => handleDelete(product.id, "product")}
                     className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-all duration-300"

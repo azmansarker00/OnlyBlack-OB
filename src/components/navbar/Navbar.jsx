@@ -56,14 +56,14 @@ const Navbar = () => {
                 cx="40"
                 cy="40"
                 r="15"
-                stroke="gray"
+                stroke="#c5c5c5"
                 strokeWidth="10"
                 fill="none"
               />
               <text
                 x="62"
                 y="50"
-                fill="gray"
+                fill="#c5c5c5"
                 fontFamily="Helvetica, sans-serif"
                 fontSize="30"
                 fontWeight="bold"

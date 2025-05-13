@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="UpSh">
       <div class="w-full min-h-screen flex items-center justify-center bg-black">
-        <div class="md:w-2/3 w-full px-4 text-gray-300 flex flex-col">
+        <div class="md:w-2/3 w-full px-4 text-[#b3b3b3] flex flex-col">
           <div class="w-full text-7xl font-bold">
             <h1 class="w-full md:w-2/3">How can we help you. get in touch</h1>
           </div>
@@ -37,14 +37,14 @@ const Footer = () => {
                     cx="40"
                     cy="40"
                     r="15"
-                    stroke="gray"
+                    stroke="#c5c5c5"
                     strokeWidth="10"
                     fill="none"
                   />
                   <text
                     x="62"
                     y="50"
-                    fill="gray"
+                    fill="#c5c5c5"
                     fontFamily="Helvetica, sans-serif"
                     fontSize="30"
                     fontWeight="bold"

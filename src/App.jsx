@@ -31,6 +31,8 @@ import MyContext from "./context/data/MyContext";
 
 // Toastify
 import { ToastContainer } from "react-toastify";
+import Addproduct from "./pages/Admin/ProductPages/Addproduct";
+import Updateproducts from "./pages/Admin/productPages/Updateproducts";
 
 const App = () => {
   return (
@@ -79,6 +81,24 @@ const App = () => {
         />
 
         <Route path="/singlepage/:id" element={<Productinfo />} />
+
+        <Route
+          path="/addproducts"
+          element={
+            <ForEditorOrAdmin>
+              <Addproduct />
+            </ForEditorOrAdmin>
+          }
+        />
+
+        <Route
+          path="/updateproducts"
+          element={
+            <ForEditorOrAdmin>
+              <Updateproducts />
+            </ForEditorOrAdmin>
+          }
+        />
 
         <Route path="/login" element={<Login />} />
 
