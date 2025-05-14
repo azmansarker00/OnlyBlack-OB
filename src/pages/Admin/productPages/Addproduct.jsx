@@ -5,7 +5,7 @@ import Layout from "../../../components/layout/Layout";
 
 function AddProduct() {
   const context = useContext(myContext);
-  const { products } = context;
+  const { products, setProducts, addProduct } = context;
 
   return (
     <Layout>

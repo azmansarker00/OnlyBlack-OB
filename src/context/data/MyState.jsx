@@ -8,10 +8,15 @@ import {
   updateDoc,
   doc,
   Timestamp,
+  Query,
+  onSnapshot,
+  QueryDocumentSnapshot,
+  addDoc,
 } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfiq";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/FirebaseConfiq";
+import { toast } from "react-toastify";
 
 const MyState = (props) => {
   const [rules, setRules] = useState("");
@@ -86,13 +91,14 @@ const MyState = (props) => {
     return () => unsubscribe();
   }, []);
 
-  // products
+  // product add
+
   const [products, setProducts] = useState({
-    title: "",
-    price: "",
-    imageUrl: "",
-    category: "",
-    description: "",
+    title: null,
+    price: null,
+    imageUrl: null,
+    category: null,
+    description: null,
     time: Timestamp.now(),
     date: new Date().toLocaleString("en-US", {
       month: "short",
@@ -101,8 +107,73 @@ const MyState = (props) => {
     }),
   });
 
+  const [product, setProduct] = useState([]);
+
+  const addProduct = async () => {
+    if (
+      !products.title ||
+      !products.price ||
+      !products.imageUrl ||
+      !products.category ||
+      !products.description
+    ) {
+      return toast.error("All fields are required");
+    }
+
+    setLoading(true);
+    try {
+      const productRef = collection(fireDB, "products");
+      await addDoc(productRef, products);
+      toast.success("Product added successfully!");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 800);
+      getProductData();
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  // get products
+
+  const getProductData = async () => {
+    setLoading(true);
+    try {
+      const q = Query(collection(fireDB, "products"), orderBy("time"));
+      const data = onSnapshot(q, (QuerySnapshot) => {
+        let productArray = [];
+        QueryDocumentSnapshot.forEach((doc) => {
+          productArray.push({ ...doc.data(), id: doc.id });
+        });
+        setProduct(productArray);
+        setLoading(false);
+      });
+
+      return () => data;
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getProductData();
+  }, []);
+
   return (
-    <MyContext.Provider value={{ rules, handleRoleChange, user, products }}>
+    <MyContext.Provider
+      value={{
+        rules,
+        handleRoleChange,
+        user,
+        setProducts,
+        products,
+        addProduct,
+        product,
+      }}
+    >
       {props.children}
     </MyContext.Provider>
   );
