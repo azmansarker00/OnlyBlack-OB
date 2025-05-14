@@ -12,6 +12,7 @@ import {
   onSnapshot,
   QueryDocumentSnapshot,
   addDoc,
+  orderBy,
 } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfiq";
 import { onAuthStateChanged } from "firebase/auth";
@@ -96,6 +97,7 @@ const MyState = (props) => {
   const [products, setProducts] = useState({
     title: null,
     price: null,
+    originalPrice: null,
     imageUrl: null,
     category: null,
     description: null,
@@ -113,6 +115,7 @@ const MyState = (props) => {
     if (
       !products.title ||
       !products.price ||
+      !products.originalPrice ||
       !products.imageUrl ||
       !products.category ||
       !products.description
@@ -125,9 +128,9 @@ const MyState = (props) => {
       const productRef = collection(fireDB, "products");
       await addDoc(productRef, products);
       toast.success("Product added successfully!");
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 800);
+      // setTimeout(() => {
+      //   window.location.href = "/";
+      // }, 800);
       getProductData();
       setLoading(false);
     } catch (error) {
@@ -138,28 +141,29 @@ const MyState = (props) => {
 
   // get products
 
-  const getProductData = async () => {
+  const getProductData = () => {
     setLoading(true);
     try {
-      const q = Query(collection(fireDB, "products"), orderBy("time"));
-      const data = onSnapshot(q, (QuerySnapshot) => {
-        let productArray = [];
-        QueryDocumentSnapshot.forEach((doc) => {
+      const q = query(collection(fireDB, "products"), orderBy("time"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const productArray = [];
+        querySnapshot.forEach((doc) => {
           productArray.push({ ...doc.data(), id: doc.id });
         });
         setProduct(productArray);
         setLoading(false);
       });
 
-      return () => data;
+      return unsubscribe;
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching products:", error);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    getProductData();
+    const unsubscribe = getProductData();
+    return () => unsubscribe && unsubscribe();
   }, []);
 
   return (
