@@ -7,16 +7,13 @@ import { Link } from "react-router-dom";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("users");
   const context = useContext(MyContext);
-  const { rules, handleRoleChange, user } = context;
+  const { rules, handleRoleChange, user, product } = context;
   const userRules = rules;
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [pendingRoleChange, setPendingRoleChange] = useState(null);
 
-  const products = [
-    { id: 1, name: "Product 1", price: "$100" },
-    { id: 2, name: "Product 2", price: "$150" },
-  ];
+  const products = product;
 
   const orders = [
     { id: 1, user: "Azman", product: "Product 1", status: "Shipped" },
@@ -112,6 +109,7 @@ const Dashboard = () => {
               "Product Image",
               "Product Name",
               "Price",
+              "OP",
               "Date",
               "Rating/Review",
               "Actions",
@@ -125,13 +123,14 @@ const Dashboard = () => {
                 <td className="py-2 px-4">{inx + 1}</td>
                 <td className="py-2 px-4">
                   <img
-                    src="https://images.unsplash.com/photo-1696824711591-018c23ff9248?w=400&auto=format&fit=crop&q=60"
-                    alt={product.name}
+                    src={product.imageUrl}
+                    alt={product.title}
                     className="w-12 h-12 rounded"
                   />
                 </td>
-                <td className="py-2 px-4">{product.name}</td>
+                <td className="py-2 px-4">{product.title}</td>
                 <td className="py-2 px-4">{product.price}</td>
+                <td className="py-2 px-4">{product.originalPrice}</td>
                 <td className="py-2 px-4">2025-05-07</td>
                 <td className="py-2 px-4">5★ (150)</td>
                 <td className="py-2 px-4">

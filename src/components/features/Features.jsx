@@ -1,99 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-const products = [
-  {
-    id: 1,
-    title: "Quant Olap Shirts",
-    image: "https://i.imgur.com/QpjAiHq.jpg",
-    price: 13.99,
-    originalPrice: 20.99,
-    category: "Shirts",
-    description:
-      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 1,
-    reviews: 310,
-  },
-  {
-    id: 2,
-    title: "Quant Trident Shirts",
-    image: "https://i.imgur.com/JvPeqEF.jpg",
-    price: 14.99,
-    originalPrice: 20.99,
-    category: "Shirts",
-    description:
-      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 5,
-    reviews: 310,
-  },
-  {
-    id: 3,
-    title: "Quant Ruybi T-Shirts",
-    image: "https://i.imgur.com/Bf4dIaN.jpg",
-    price: 13.99,
-    originalPrice: 20.99,
-    category: "T-Shirts",
-    description:
-      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 4,
-    reviews: 123,
-  },
-  {
-    id: 4,
-    title: "Quant Tinor Pants",
-    image: "https://i.imgur.com/HO8e9b8.jpg",
-    price: 15.99,
-    originalPrice: 21.99,
-    category: "Pants",
-    description:
-      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 9.5,
-    reviews: 110,
-  },
-  {
-    id: 5,
-    title: "Quant Tinor So close. Not quite the 32/28 I'm looking for.",
-    image:
-      "https://i.imgur.com/f9Q8oDh_d.webp?maxwidth=520&shape=thumb&fidelity=high",
-    price: 17.77,
-    originalPrice: 17.77,
-    category: "Cloths",
-    description:
-      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 3,
-    reviews: 10,
-  },
-  {
-    id: 6,
-    title: "Quant Tinor So",
-    image:
-      "https://i.imgur.com/f9Q8oDh_d.webp?maxwidth=520&shape=thumb&fidelity=high",
-    price: 18.77,
-    originalPrice: 17.77,
-    category: "Cloths",
-    description:
-      "100% cotton • Light weight • Best finish • Unique design • For men • Casual",
-    rating: 3,
-    reviews: 10,
-  },
-];
+// Context
+import MyContext from "../../context/data/MyContext";
 
+// Local Storage
 const user = JSON.parse(localStorage.getItem("user"));
 
 const Features = () => {
+  const context = useContext(MyContext);
+  const { product } = context;
+
   return (
     <div className="bg-dark min-h-screen pb-10">
       <h1 className="p-12 text-4xl font-bold text-gray-400 mb-10 UpSh text-center">
         Featured
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-2 gap-6 px-4 sm:px-6 md:px-10">
-        {products.slice(0, 6).map((item) => (
+        {product.slice(0, 6).map((item) => (
           <div
             key={item.id}
             className="flex flex-col md:flex-row gap-4 bg-[#161616] border border-[#353535] rounded-2xl p-4 shadow-lg"
           >
             <img
-              src={item.image}
+              src={item.imageUrl}
               alt={item.title}
               className="w-full md:w-48 h-48 object-cover rounded-xl"
             />
