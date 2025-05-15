@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { FaStar, FaStarHalfAlt, FaHeart } from "react-icons/fa";
 import Layout from "../../components/layout/Layout";
 import { fireDB } from "../../firebase/FirebaseConfiq";
+import { doc, getDoc } from "firebase/firestore";
 
 const Productinfo = () => {
   const { id } = useParams();
@@ -42,12 +43,6 @@ const Productinfo = () => {
 
   const shuffled = [...otherProducts].sort(() => 0.5 - Math.random());
   const suggested = [...sameCategory.slice(0, 10), ...shuffled].slice(0, 20);
-
-  const addToWishlist = (product) => {
-    let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-    wishlist.push(product);
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-  };
 
   const user = JSON.parse(localStorage.getItem("user"));
 
