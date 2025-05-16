@@ -168,6 +168,7 @@ const MyState = (props) => {
   // Add to cart
 
   const [cart, setCart] = useState([]);
+  localStorage.setItem("cart", JSON.stringify(cart));
 
   return (
     <MyContext.Provider
