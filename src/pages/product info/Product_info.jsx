@@ -14,7 +14,7 @@ const Productinfo = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
   const context = useContext(MyContext);
-  const { product: allProducts, setCart } = context;
+  const { product: allProducts, addToCart } = context;
 
   const getProductData = async () => {
     setLoading(true);
@@ -135,7 +135,7 @@ const Productinfo = () => {
             {user ? (
               <>
                 <button
-                  onClick={() => setCart(id)}
+                  onClick={() => addToCart(id)}
                   className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl"
                 >
                   Add to Cart

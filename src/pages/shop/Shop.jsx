@@ -8,7 +8,7 @@ import MyContext from "../../context/data/MyContext";
 
 const Shop = () => {
   const context = useContext(MyContext);
-  const { product } = context;
+  const { product, addToCart } = context;
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("default");
@@ -162,7 +162,10 @@ const Shop = () => {
                         Add to Wishlist
                       </button>
                       {user ? (
-                        <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                        <button
+                          onClick={() => addToCart(id)}
+                          className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl"
+                        >
                           Add to Cart
                         </button>
                       ) : (

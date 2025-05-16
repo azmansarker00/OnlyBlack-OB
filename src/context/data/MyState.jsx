@@ -167,8 +167,20 @@ const MyState = (props) => {
 
   // Add to cart
 
-  const [cart, setCart] = useState([]);
-  localStorage.setItem("cart", JSON.stringify(cart));
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  const addToCart = (productId) => {
+    if (!cart.includes(productId)) {
+      setCart((prevCart) => [...prevCart, productId]);
+    }
+  };
 
   return (
     <MyContext.Provider
@@ -180,7 +192,7 @@ const MyState = (props) => {
         products,
         addProduct,
         product,
-        setCart,
+        addToCart,
       }}
     >
       {props.children}
