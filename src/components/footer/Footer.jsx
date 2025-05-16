@@ -4,28 +4,30 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="UpSh">
-      <div class="w-full min-h-screen flex items-center justify-center bg-black">
-        <div class="md:w-2/3 w-full px-4 text-[#b3b3b3] flex flex-col">
-          <div class="w-full text-7xl font-bold">
-            <h1 class="w-full md:w-2/3">How can we help you. get in touch</h1>
+      <div className="w-full min-h-screen flex items-center justify-center bg-black">
+        <div className="md:w-2/3 w-full px-4 text-[#b3b3b3] flex flex-col">
+          <div className="w-full text-7xl font-bold">
+            <h1 className="w-full md:w-2/3">
+              How can we help you. get in touch
+            </h1>
           </div>
-          <div class="flex mt-8 flex-col md:flex-row md:justify-between">
-            <p class="w-full md:w-2/3 text-gray-400">
+          <div className="flex mt-8 flex-col md:flex-row md:justify-between">
+            <p className="w-full md:w-2/3 text-gray-400">
               To ensure that all Wikipedia content is verifiable, anyone may
               question an uncited claim. If your work has been tagged
             </p>
-            <div class="w-44 pt-6 md:pt-0">
+            <div className="w-44 pt-6 md:pt-0">
               <Link
                 to={"/contact"}
-                class="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center"
+                className="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center"
               >
                 Contact US
               </Link>
             </div>
           </div>
-          <div class="flex flex-col">
-            <div class="flex mt-24 mb-12 flex-row justify-between items-center">
-              <div class="">
+          <div className="flex flex-col">
+            <div className="flex mt-24 mb-12 flex-row justify-between items-center">
+              <div className="">
                 <svg
                   width="250"
                   height="80"
@@ -55,29 +57,29 @@ const Footer = () => {
               </div>
               <Link
                 to={"/about"}
-                class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
+                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
               >
                 About
               </Link>
               <Link
                 to={"/services"}
-                class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
+                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
               >
                 Services
               </Link>
               <Link
                 to={"/whyus"}
-                class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
+                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
               >
                 Why us
               </Link>
               <Link
                 to={"/contact"}
-                class="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
+                className="hidden md:block cursor-pointer text-gray-600 hover:text-white uppercase"
               >
                 Contact
               </Link>
-              <div class="flex flex-row space-x-8 items-center justify-between">
+              <div className="flex flex-row space-x-8 items-center justify-between">
                 <a>
                   <svg
                     className="w-2.5 cursor-pointer"
@@ -127,8 +129,8 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-            <hr class="border-gray-600" />
-            <p class="w-full text-center mt-6 text-gray-600">
+            <hr className="border-gray-600" />
+            <p className="w-full text-center mt-6 text-gray-600">
               Copyright © 2025 OnlyBlack
             </p>
           </div>

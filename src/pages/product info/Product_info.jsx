@@ -1,95 +1,195 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, Link } from "react-router-dom";
+import { FaStar, FaStarHalfAlt, FaHeart } from "react-icons/fa";
 import Layout from "../../components/layout/Layout";
-import { useParams } from "react-router";
-import { doc, getDoc } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfiq";
+import { doc, getDoc } from "firebase/firestore";
+import MyContext from "../../context/data/MyContext";
 
-function ProductInfo() {
-  const [products, setProducts] = useState("");
-  const params = useParams();
-  const [loading, setLoading] = useState(false);
+const Productinfo = () => {
+  const { id } = useParams();
+  const [productData, setProductData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [suggested, setSuggested] = useState([]);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const context = useContext(MyContext);
+  const { product: allProducts, setCart } = context;
 
   const getProductData = async () => {
     setLoading(true);
     try {
-      const productTemp = await getDoc(doc(fireDB, "products", params.id));
-      setProducts(productTemp.data());
-      setLoading(false);
+      const docRef = doc(fireDB, "products", id);
+      const productDoc = await getDoc(docRef);
+      if (productDoc.exists()) {
+        setProductData({ id: productDoc.id, ...productDoc.data() });
+      } else {
+        setProductData(null);
+      }
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching product:", error);
+    } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
     getProductData();
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    if (productData && allProducts.length > 0) {
+      const sameCategory = allProducts.filter(
+        (p) => p.category === productData.category && p.id !== productData.id
+      );
+
+      const otherProducts = allProducts.filter(
+        (p) => p.category !== productData.category
+      );
+
+      const shuffledOther = [...otherProducts].sort(() => 0.5 - Math.random());
+
+      const maxSameCategory = sameCategory.slice(0, 10);
+      const remaining = 20 - maxSameCategory.length;
+
+      const combinedSuggestions = [
+        ...maxSameCategory,
+        ...shuffledOther.slice(0, remaining),
+      ];
+
+      setSuggested(combinedSuggestions);
+    }
+  }, [productData, allProducts]);
+
+  if (loading) {
+    return <div className="text-center text-white mt-10">Loading...</div>;
+  }
+
+  if (!productData) {
+    return (
+      <div className="text-center text-red-500 font-semibold mt-10">
+        Product not found.
+      </div>
+    );
+  }
 
   return (
     <Layout>
-      <section className="text-gray-600 body-font overflow-hidden">
-        <div className="container px-5 py-10 mx-auto">
-          {products && (
-            <div className="lg:w-4/5 mx-auto flex flex-wrap">
-              <div className="flex flex-col">
-                <img
-                  alt="ecommerce"
-                  className="w-120 h-120 object-cover object-center rounded-4xl border border-gray-200 p-10"
-                  src={products.imageUrl}
-                />
-                <div className="flex justify-around mt-5">
-                  <span className="title-font font-bold text-2xl">
-                    {products.price} TK
-                  </span>
-
-                  <div className="flex mb-4">
-                    <span className="flex items-center">
-                      {Array.from({ length: 5 }).map((_, idx) => {
-                        const ratingValue = idx + 1;
-                        return (
-                          <svg
-                            key={idx}
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill={
-                              ratingValue <= Math.round(products.rating)
-                                ? "currentColor"
-                                : "none"
-                            }
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            className="w-5 h-5 text-orange-400"
-                          >
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                          </svg>
-                        );
-                      })}
-                      <span className="text-gray-600 ml-2">
-                        ({products.totalRatings} Reviews)
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                  E- MART
+      <div className="max-w-6xl mx-auto p-4">
+        <div className="bg-[#161616] border border-[#353535] rounded-xl shadow-lg p-6 mb-12">
+          <div className="text-sm text-gray-500 mb-4">
+            HOME / {productData.category?.toUpperCase()}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div className="flex justify-center">
+              <img
+                src={productData.image || productData.imageUrl}
+                alt={productData.title}
+                className="w-full max-w-xs object-contain rounded-lg"
+              />
+            </div>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-gray-400">
+                  {productData.title}
                 </h2>
-                <h1 className="text-2xl title-font font-medium mb-1">
-                  {products.title}
-                </h1>
-
-                <span className="text-gray-400 mt-28">Description</span>
-                <p className="leading-relaxed text-[12px] border-b-2 mb-5 pb-5">
-                  {products.description}
-                </p>
+                {user ? (
+                  <button className="text-gray-500 hover:text-red-500">
+                    <FaHeart />
+                  </button>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="text-gray-500 hover:text-red-500"
+                  >
+                    <FaHeart />
+                  </Link>
+                )}
+              </div>
+              <p className="text-gray-500">{productData.description}</p>
+              <div className="flex items-center space-x-1 text-yellow-500">
+                {[...Array(Math.floor(productData.rating || 0))].map((_, i) => (
+                  <FaStar key={i} />
+                ))}
+                {productData.rating % 1 !== 0 && <FaStarHalfAlt />}
+                <span className="text-gray-500 ml-2 text-sm">
+                  ({productData.totalRatings || productData.reviews || 0}{" "}
+                  Reviews)
+                </span>
+              </div>
+              <div className="text-lg text-gray-400">
+                <span className="font-semibold">
+                  ${parseFloat(productData.price).toFixed(2)}
+                </span>
+                {productData.originalPrice &&
+                  productData.originalPrice !== productData.price && (
+                    <span className="line-through text-gray-500 ml-2">
+                      ${parseFloat(productData.originalPrice).toFixed(2)}
+                    </span>
+                  )}
               </div>
             </div>
-          )}
+          </div>
+
+          <div className="mt-6 flex justify-end">
+            {user ? (
+              <>
+                <button
+                  onClick={() => setCart(id)}
+                  className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl"
+                >
+                  Add to Cart
+                </button>
+                <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                  Buy now
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <button className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                    Add to Cart
+                  </button>
+                </Link>
+                <Link to="/login">
+                  <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
+                    Buy now
+                  </button>
+                </Link>
+              </>
+            )}
+          </div>
         </div>
-      </section>
+
+        {suggested.length > 0 && (
+          <div className="mt-10">
+            <h3 className="text-xl text-white mb-4">You may also like</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+              {suggested.map((item) => (
+                <Link
+                  to={`/singlepage/${item.id}`}
+                  key={item.id}
+                  className="bg-[#161616] p-4 border border-[#353535] rounded-lg shadow hover:shadow-lg transition duration-300"
+                >
+                  <img
+                    src={item.image || item.imageUrl}
+                    alt={item.title}
+                    className="w-full h-40 object-cover rounded-md mb-2"
+                  />
+                  <h4 className="text-gray-300 text-lg font-semibold">
+                    {item.title}
+                  </h4>
+                  <p className="text-gray-400">
+                    TK {parseFloat(item.price).toFixed(2)}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </Layout>
   );
-}
+};
 
-export default ProductInfo;
+export default Productinfo;

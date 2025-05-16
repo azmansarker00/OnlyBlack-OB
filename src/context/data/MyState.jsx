@@ -38,7 +38,6 @@ const MyState = (props) => {
 
         querySnapshot.forEach((doc) => {
           const data = doc.data();
-          console.log("Matched Data:", data);
           setRules(data.rules || "");
         });
       }
@@ -166,6 +165,10 @@ const MyState = (props) => {
     return () => unsubscribe && unsubscribe();
   }, []);
 
+  // Add to cart
+
+  const [cart, setCart] = useState([]);
+
   return (
     <MyContext.Provider
       value={{
@@ -176,6 +179,7 @@ const MyState = (props) => {
         products,
         addProduct,
         product,
+        setCart,
       }}
     >
       {props.children}
