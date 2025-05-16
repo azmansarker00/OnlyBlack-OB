@@ -5,6 +5,7 @@ import Layout from "../../components/layout/Layout";
 import { fireDB } from "../../firebase/FirebaseConfiq";
 import { doc, getDoc } from "firebase/firestore";
 import MyContext from "../../context/data/MyContext";
+import { useDispatch, useSelector } from "react-redux";
 
 const Productinfo = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const Productinfo = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
   const context = useContext(MyContext);
-  const { product: allProducts, addToCart } = context;
+  const { product: allProducts } = context;
 
   const getProductData = async () => {
     setLoading(true);
@@ -72,6 +73,21 @@ const Productinfo = () => {
       </div>
     );
   }
+
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart);
+
+  // Add to cart
+  const addCart = (products) => {
+    dispatch(addToCart(products));
+    toast.success("Added to cart", {
+      position: "top-center",
+    });
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   return (
     <Layout>
@@ -135,7 +151,7 @@ const Productinfo = () => {
             {user ? (
               <>
                 <button
-                  onClick={() => addToCart(id)}
+                  onClick={() => addCart(products)}
                   className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl"
                 >
                   Add to Cart
