@@ -74,7 +74,6 @@ const Productinfo = () => {
     );
   }
 
-  // redux
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart);
 
@@ -152,7 +151,7 @@ const Productinfo = () => {
             {user ? (
               <>
                 <button
-                  onClick={() => addCart(productData)}
+                  onClick={() => addCart(products)}
                   className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl"
                 >
                   Add to Cart
