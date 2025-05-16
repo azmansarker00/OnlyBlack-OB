@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // Context
 import MyContext from "../../context/data/MyContext";
@@ -7,9 +8,25 @@ import MyContext from "../../context/data/MyContext";
 // Local Storage
 const user = JSON.parse(localStorage.getItem("user"));
 
+// redux
+const dispatch = useDispatch();
+const cartItems = useSelector((state) => state.cart);
+
+// Add to cart
+const addCart = (products) => {
+  dispatch(addToCart(products));
+  toast.success("Added to cart", {
+    position: "top-center",
+  });
+};
+
+useEffect(() => {
+  localStorage.setItem("cart", JSON.stringify(cartItems));
+}, [cartItems]);
+
 const Features = () => {
   const context = useContext(MyContext);
-  const { product, addToCart } = context;
+  const { product } = context;
 
   return (
     <div className="bg-dark min-h-screen pb-10">
@@ -72,7 +89,7 @@ const Features = () => {
                   </button>
                   {user ? (
                     <button
-                      onClick={() => addToCart(id)}
+                      onClick={() => addCart(id)}
                       className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl"
                     >
                       Add to Cart
