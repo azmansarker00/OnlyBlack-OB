@@ -181,25 +181,27 @@ const Dashboard = () => {
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-1/5 bg-[#1e1e1e] rounded-2xl p-4 shadow-md">
             <div className="flex flex-col gap-4">
-              {["users", "products", "orders"].map((tab) => {
-                const label =
-                  tab === "users"
-                    ? `Users (${user.length})`
-                    : tab.charAt(0).toUpperCase() + tab.slice(1);
-                return (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`w-full py-2 px-4 rounded-lg text-left font-medium transition-all duration-300 cursor-pointer border-2 ${
-                      activeTab === tab
-                        ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow border-transparent"
-                        : "bg-[#2a2a2a] text-gray-400 hover:bg-[#333] border-transparent"
-                    }`}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
+              {["users", "products", "orders", "faqs", "testimonial"].map(
+                (tab) => {
+                  const label =
+                    tab === "users"
+                      ? `Users (${user.length})`
+                      : tab.charAt(0).toUpperCase() + tab.slice(1);
+                  return (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`w-full py-2 px-4 rounded-lg text-left font-medium transition-all duration-300 cursor-pointer border-2 ${
+                        activeTab === tab
+                          ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow border-transparent"
+                          : "bg-[#2a2a2a] text-gray-400 hover:bg-[#333] border-transparent"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                }
+              )}
             </div>
           </div>
 

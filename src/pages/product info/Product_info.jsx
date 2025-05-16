@@ -1,17 +1,16 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { FaStar, FaStarHalfAlt, FaHeart } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
-import { fireDB } from "../../firebase/FirebaseConfiq";
+import { useParams } from "react-router";
 import { doc, getDoc } from "firebase/firestore";
+import { fireDB } from "../../firebase/FirebaseConfiq";
 
-const Productinfo = () => {
-  const { id } = useParams();
-  const productId = parseInt(id);
-
+function ProductInfo() {
   const [products, setProducts] = useState("");
+  const params = useParams();
+  const [loading, setLoading] = useState(false);
 
   const getProductData = async () => {
+    setLoading(true);
     try {
       const productTemp = await getDoc(doc(fireDB, "products", params.id));
       setProducts(productTemp.data());
@@ -26,134 +25,71 @@ const Productinfo = () => {
     getProductData();
   }, []);
 
-  const product = products.find((p) => p.id === productId);
-
-  if (!product) {
-    return (
-      <div className="text-center text-red-500 font-semibold mt-10">
-        Product not found.
-      </div>
-    );
-  }
-
-  const sameCategory = products.filter(
-    (p) => p.category === product.category && p.id !== product.id
-  );
-  const otherProducts = products.filter((p) => p.category !== product.category);
-
-  const shuffled = [...otherProducts].sort(() => 0.5 - Math.random());
-  const suggested = [...sameCategory.slice(0, 10), ...shuffled].slice(0, 20);
-
-  const user = JSON.parse(localStorage.getItem("user"));
-
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto p-4">
-        <div className="bg-[#161616] border border-[#353535] rounded-xl shadow-lg p-6 mb-12">
-          <div className="text-sm text-gray-500 mb-4">
-            HOME / {product.category?.toUpperCase()}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-            <div className="flex justify-center">
-              <img
-                src={product.image}
-                alt={product.title}
-                className="w-full max-w-xs object-contain rounded-lg"
-              />
-            </div>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-gray-400">
-                  {product.title}
-                </h2>
-                {user ? (
-                  <button
-                    onClick={addToWishlist}
-                    className="text-gray-500 hover:text-red-500"
-                  >
-                    <FaHeart />
-                  </button>
-                ) : (
-                  <button className="text-gray-500 hover:text-red-500">
-                    <Link to={"/login"}>
-                      <FaHeart />
-                    </Link>
-                  </button>
-                )}
-              </div>
-              <p className="text-gray-500">{product.description}</p>
-              <div className="flex items-center space-x-1 text-yellow-500">
-                {[...Array(Math.floor(product.rating))].map((_, i) => (
-                  <FaStar key={i} />
-                ))}
-                {product.rating % 1 !== 0 && <FaStarHalfAlt />}
-                <span className="text-gray-500 ml-2 text-sm">
-                  {product.reviews} Reviews
-                </span>
-              </div>
-              <div className="text-lg text-gray-400">
-                <span className="font-semibold">
-                  ${product.price.toFixed(2)}
-                </span>
-                {product.originalPrice !== product.price && (
-                  <span className="line-through text-gray-500 ml-2">
-                    ${product.originalPrice.toFixed(2)}
+      <section className="text-gray-600 body-font overflow-hidden">
+        <div className="container px-5 py-10 mx-auto">
+          {products && (
+            <div className="lg:w-4/5 mx-auto flex flex-wrap">
+              <div className="flex flex-col">
+                <img
+                  alt="ecommerce"
+                  className="w-120 h-120 object-cover object-center rounded-4xl border border-gray-200 p-10"
+                  src={products.imageUrl}
+                />
+                <div className="flex justify-around mt-5">
+                  <span className="title-font font-bold text-2xl">
+                    {products.price} TK
                   </span>
-                )}
+
+                  <div className="flex mb-4">
+                    <span className="flex items-center">
+                      {Array.from({ length: 5 }).map((_, idx) => {
+                        const ratingValue = idx + 1;
+                        return (
+                          <svg
+                            key={idx}
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill={
+                              ratingValue <= Math.round(products.rating)
+                                ? "currentColor"
+                                : "none"
+                            }
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            className="w-5 h-5 text-orange-400"
+                          >
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                        );
+                      })}
+                      <span className="text-gray-600 ml-2">
+                        ({products.totalRatings} Reviews)
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                  E- MART
+                </h2>
+                <h1 className="text-2xl title-font font-medium mb-1">
+                  {products.title}
+                </h1>
+
+                <span className="text-gray-400 mt-28">Description</span>
+                <p className="leading-relaxed text-[12px] border-b-2 mb-5 pb-5">
+                  {products.description}
+                </p>
               </div>
             </div>
-          </div>
-          <div className="mt-6 flex justify-end">
-            {user ? (
-              <button className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                Add to Cart
-              </button>
-            ) : (
-              <Link to="/login">
-                <button className="bg-gray-400 mr-3 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                  Add to Cart
-                </button>
-              </Link>
-            )}
-
-            {user ? (
-              <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                Buy now
-              </button>
-            ) : (
-              <Link to="/login">
-                <button className="bg-gray-400 active:bg-gray-500 cursor-pointer text-black px-3 py-1 rounded-2xl">
-                  Buy now
-                </button>
-              </Link>
-            )}
-          </div>
+          )}
         </div>
-
-        {/* Suggested Products */}
-        <h3 className="text-2xl font-bold text-white mb-6">
-          You May Also Like
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {suggested.map((item) => (
-            <Link
-              to={`/singlepage/${item.id}`}
-              key={item.id}
-              className="cursor-pointer bg-[#1f1f1f] border border-[#333] rounded-lg p-3 hover:shadow-md transition"
-            >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-40 object-contain rounded"
-              />
-              <h4 className="mt-2 text-gray-300 font-medium">{item.title}</h4>
-              <p className="text-gray-500 mt-1">${item.price}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
+      </section>
     </Layout>
   );
-};
+}
 
-export default Productinfo;
+export default ProductInfo;
