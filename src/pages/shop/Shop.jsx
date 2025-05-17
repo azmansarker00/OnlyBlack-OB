@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import { motion, AnimatePresence } from "framer-motion";
 
-// context
+// Context
 import MyContext from "../../context/data/MyContext";
 
 const Shop = () => {
