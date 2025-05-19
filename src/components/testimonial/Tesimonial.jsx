@@ -1,6 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { fireDB } from "../../firebase/FirebaseConfiq";
 
 const Testimonials = () => {
+  const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const gettestimonialstData = () => {
+    setLoading(true);
+    try {
+      const q = query(collection(fireDB, "testimonials"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const testimonialsarray = [];
+        querySnapshot.forEach((doc) => {
+          testimonialsarray.push({ ...doc.data(), id: doc.id });
+        });
+        setTestimonials(testimonialsarray);
+        setLoading(false);
+      });
+
+      return unsubscribe;
+    } catch (error) {
+      console.error("Error fetching testimonials:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = gettestimonialstData();
+    return () => unsubscribe && unsubscribe();
+  }, []);
+
   return (
     <div className="bg-[#161616] text-gray-100 sm:px-8 py-12 UpSh">
       <div className="text-center w-full">
