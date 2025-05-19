@@ -45,8 +45,21 @@ const Faqs = () => {
             </p>
           </div>
           <div className="flex flex-wrap lg:w-4/5 sm:mx-auto sm:mb-2 -mx-2">
+            {/* Split the FAQs into two columns */}
             <div className="w-full lg:w-1/2 px-4 py-2">
-              {faqs.map((faq) => (
+              {faqs.slice(0, Math.ceil(faqs.length / 2)).map((faq) => (
+                <details key={faq.id} className="mb-4 cursor-pointer">
+                  <summary className="font-semibold bg-[#161616] rounded-md py-2 px-4">
+                    {faq.questions}
+                  </summary>
+                  <span className="block mt-2 text-gray-300 px-4">
+                    {faq.answers}
+                  </span>
+                </details>
+              ))}
+            </div>
+            <div className="w-full lg:w-1/2 px-4 py-2">
+              {faqs.slice(Math.ceil(faqs.length / 2)).map((faq) => (
                 <details key={faq.id} className="mb-4 cursor-pointer">
                   <summary className="font-semibold bg-[#161616] rounded-md py-2 px-4">
                     {faq.questions}
