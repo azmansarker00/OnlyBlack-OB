@@ -4,7 +4,7 @@ import { fireDB } from "../../firebase/FirebaseConfiq";
 
 const Faqs = () => {
   const [faqs, setFaqs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
 
   const getfaqstData = () => {
     setLoading(true);
