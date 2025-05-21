@@ -13,6 +13,8 @@ import {
   QueryDocumentSnapshot,
   addDoc,
   orderBy,
+  deleteDoc,
+  setDoc,
 } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfiq";
 import { onAuthStateChanged } from "firebase/auth";
@@ -182,6 +184,39 @@ const MyState = (props) => {
     }
   };
 
+  // update and delete product
+
+  const edithandle = (item) => {
+    setProducts(item);
+  };
+  const updateProduct = async () => {
+    setLoading(true);
+    try {
+      await setDoc(doc(fireDB, "products", products.id), products);
+      toast.success("Product updated successfully!");
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 800);
+      getProductData();
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const deleteProduct = async (item) => {
+    setLoading(true);
+    try {
+      await deleteDoc(doc(fireDB, "products", item.id));
+      toast.success("Product deleted successfully");
+      getProductData();
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
   return (
     <MyContext.Provider
       value={{
@@ -193,6 +228,9 @@ const MyState = (props) => {
         addProduct,
         product,
         addToCart,
+        updateProduct,
+        deleteProduct,
+        edithandle,
       }}
     >
       {props.children}

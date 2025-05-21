@@ -5,7 +5,7 @@ import Layout from "../../../components/layout/Layout";
 
 function Updateproducts() {
   const context = useContext(myContext);
-  const { products } = context;
+  const { products, setProducts, updateProduct } = context;
 
   return (
     <Layout>
@@ -73,11 +73,11 @@ function Updateproducts() {
             </div>
 
             <button
-              onClick={() => addProduct(products)}
+              onClick={updateProduct}
               className="bg-black text-gray-400 font-semibold w-full flex items-center justify-center gap-2 py-2.5 rounded-lg hover:bg-[#0a0a0a] cursor-pointer transition duration-300"
             >
               <PlusCircle className="w-5 h-5" />
-              Add Product
+              Update Product
             </button>
           </div>
         </div>

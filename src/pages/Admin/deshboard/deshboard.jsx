@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("users");
   const context = useContext(MyContext);
-  const { rules, handleRoleChange, user, product } = context;
+  const { rules, handleRoleChange, user, product, deleteProduct, edithandle } =
+    context;
   const userRules = rules;
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -19,10 +20,6 @@ const Dashboard = () => {
     { id: 1, user: "Azman", product: "Product 1", status: "Shipped" },
     { id: 2, user: "Snigdho", product: "Product 2", status: "Pending" },
   ];
-
-  const handleDelete = (id, type) => {
-    toast.success(`Deleted ${type} with ID: ${id}`);
-  };
 
   const requestRoleChange = (userId, newRole) => {
     setPendingRoleChange({ userId, newRole });
@@ -135,12 +132,15 @@ const Dashboard = () => {
                 <td className="py-2 px-4">5★ (150)</td>
                 <td className="py-2 px-4">
                   <Link to={"/updateproducts"}>
-                    <button className="mr-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300">
+                    <button
+                      onClick={() => edithandle(item)}
+                      className="mr-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
+                    >
                       Update
                     </button>
                   </Link>
                   <button
-                    onClick={() => handleDelete(product.id, "product")}
+                    onClick={() => deleteProduct(item)}
                     className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-all duration-300"
                   >
                     Delete
