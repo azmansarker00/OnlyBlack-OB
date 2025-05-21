@@ -60,7 +60,7 @@ const MyState = (props) => {
   const getUserData = async () => {
     setLoading(true);
     try {
-      const q = Query(collection(fireDB, "usersInfo"));
+      const q = query(collection(fireDB, "usersInfo"));
       const result = await getDocs(q);
 
       const usersArray = [];
