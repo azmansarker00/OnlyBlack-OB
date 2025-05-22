@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.5",
+    "emailjs": "^4.0.3",
+    "emailjs-com": "^3.2.0",
     "firebase": "^11.6.1",
     "icons": "^1.0.0",
     "lucide-react": "^0.508.0",

@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useRef } from "react";
+import emailjs from "emailjs-com";
 import Layout from "../../components/layout/Layout";
 import { Mail, Phone, MapPin, User, MessageSquare, Tag } from "lucide-react";
 
 const Contact = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_qoxwi33",
+        "template_wqn73nh",
+        form.current,
+        "Gs6DSdzorIvTZc2Lk"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          alert("Message sent successfully!");
+          form.current.reset();
+        },
+        (error) => {
+          console.log(error.text);
+          alert("Failed to send message. Please try again later.");
+        }
+      );
+  };
+
   return (
     <Layout>
       <div className="bg-[#161616] min-h-screen px-4 py-16 sm:px-6 lg:px-8 text-white font-sans animate-fade-in">
@@ -18,8 +44,8 @@ const Contact = () => {
 
           {/* Form Container */}
           <form
-            action="#"
-            method="POST"
+            ref={form}
+            onSubmit={sendEmail}
             className="bg-[#1f1f1f] border border-[#353535] shadow-xl rounded-3xl p-8 space-y-8"
           >
             {/* Name & Email */}

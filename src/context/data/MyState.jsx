@@ -245,6 +245,33 @@ const MyState = (props) => {
     return () => unsubscribe && unsubscribe();
   }, []);
 
+  const [testimonials, setTestimonials] = useState([]);
+
+  const gettestimonialstData = () => {
+    setLoading(true);
+    try {
+      const q = query(collection(fireDB, "testimonials"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const testimonialsarray = [];
+        querySnapshot.forEach((doc) => {
+          testimonialsarray.push({ ...doc.data(), id: doc.id });
+        });
+        setTestimonials(testimonialsarray);
+        setLoading(false);
+      });
+
+      return unsubscribe;
+    } catch (error) {
+      console.error("Error fetching testimonials:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = gettestimonialstData();
+    return () => unsubscribe && unsubscribe();
+  }, []);
+
   return (
     <MyContext.Provider
       value={{
@@ -260,6 +287,7 @@ const MyState = (props) => {
         deleteProduct,
         edithandle,
         faqs,
+        testimonials,
       }}
     >
       {props.children}

@@ -18,6 +18,7 @@ const Dashboard = () => {
     deleteProduct,
     edithandle,
     faqs,
+    testimonials,
   } = context;
   const userRules = rules;
 
@@ -29,11 +30,6 @@ const Dashboard = () => {
   const orders = [
     { id: 1, user: "Azman", product: "Product 1", status: "Shipped" },
     { id: 2, user: "Snigdho", product: "Product 2", status: "Pending" },
-  ];
-
-  const testimonials = [
-    { id: 1, name: "Azman", message: "Great service!" },
-    { id: 2, name: "Snigdho", message: "Awesome experience." },
   ];
 
   const requestRoleChange = (userId, newRole) => {
@@ -213,13 +209,14 @@ const Dashboard = () => {
 
     if (type === "testimonial") {
       return (
-        <Table headers={["No.", "Name", "Message", "Action"]}>
+        <Table headers={["No.", "Title", "Name", "Message", "Action"]}>
           {testimonials.map((t, inx) => (
             <tr
               key={t.id}
               className="hover:bg-[#1e1e1e] transition-all duration-300"
             >
               <td className="py-2 px-4">{inx + 1}</td>
+              <td className="py-2 px-4">{t.title}</td>
               <td className="py-2 px-4">{t.name}</td>
               <td className="py-2 px-4">{t.message}</td>
               <Link to={"/updatetestimonial"}>
