@@ -1,36 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { collection, query, onSnapshot } from "firebase/firestore";
-import { fireDB } from "../../firebase/FirebaseConfiq";
+import React, { useContext, useEffect, useState } from "react";
+import MyContext from "../../context/data/MyContext";
 
 const Faqs = () => {
-  const [faqs, setFaqs] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const getfaqstData = () => {
-    setLoading(true);
-    try {
-      const q = query(collection(fireDB, "faqs"));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const faqsarray = [];
-        querySnapshot.forEach((doc) => {
-          faqsarray.push({ ...doc.data(), id: doc.id });
-        });
-        setFaqs(faqsarray);
-        setLoading(false);
-      });
-
-      return unsubscribe;
-    } catch (error) {
-      console.error("Error fetching FAQs:", error);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const unsubscribe = getfaqstData();
-    return () => unsubscribe && unsubscribe();
-  }, []);
-
+  const context = useContext(MyContext);
+  const { faqs } = context;
   return (
     <div>
       <section className="text-gray-400 UpSh">

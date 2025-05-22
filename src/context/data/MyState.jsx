@@ -8,7 +8,6 @@ import {
   updateDoc,
   doc,
   Timestamp,
-  Query,
   onSnapshot,
   QueryDocumentSnapshot,
   addDoc,
@@ -217,6 +216,35 @@ const MyState = (props) => {
       setLoading(false);
     }
   };
+
+  // FAqs
+  const [faqs, setFaqs] = useState([]);
+
+  const getfaqstData = () => {
+    setLoading(true);
+    try {
+      const q = query(collection(fireDB, "faqs"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const faqsarray = [];
+        querySnapshot.forEach((doc) => {
+          faqsarray.push({ ...doc.data(), id: doc.id });
+        });
+        setFaqs(faqsarray);
+        setLoading(false);
+      });
+
+      return unsubscribe;
+    } catch (error) {
+      console.error("Error fetching FAQs:", error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = getfaqstData();
+    return () => unsubscribe && unsubscribe();
+  }, []);
+
   return (
     <MyContext.Provider
       value={{
@@ -231,6 +259,7 @@ const MyState = (props) => {
         updateProduct,
         deleteProduct,
         edithandle,
+        faqs,
       }}
     >
       {props.children}

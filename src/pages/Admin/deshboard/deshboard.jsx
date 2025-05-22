@@ -4,11 +4,21 @@ import MyContext from "../../../context/data/MyContext";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
+import { TbEdit } from "react-icons/tb";
+import { MdDelete } from "react-icons/md";
+
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("users");
   const context = useContext(MyContext);
-  const { rules, handleRoleChange, user, product, deleteProduct, edithandle } =
-    context;
+  const {
+    rules,
+    handleRoleChange,
+    user,
+    product,
+    deleteProduct,
+    edithandle,
+    faqs,
+  } = context;
   const userRules = rules;
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -19,6 +29,11 @@ const Dashboard = () => {
   const orders = [
     { id: 1, user: "Azman", product: "Product 1", status: "Shipped" },
     { id: 2, user: "Snigdho", product: "Product 2", status: "Pending" },
+  ];
+
+  const testimonials = [
+    { id: 1, name: "Azman", message: "Great service!" },
+    { id: 2, name: "Snigdho", message: "Awesome experience." },
   ];
 
   const requestRoleChange = (userId, newRole) => {
@@ -134,16 +149,16 @@ const Dashboard = () => {
                   <Link to={"/updateproducts"}>
                     <button
                       onClick={() => edithandle(product)}
-                      className="mr-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
+                      className="mr-2 px-2 py-1 text-xl bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
                     >
-                      Update
+                      <TbEdit />
                     </button>
                   </Link>
                   <button
                     onClick={() => deleteProduct(product)}
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-all duration-300"
+                    className="px-2 py-1 text-xl bg-red-500 text-white rounded hover:bg-red-600 transition-all duration-300"
                   >
-                    Delete
+                    <MdDelete />
                   </button>
                 </td>
               </tr>
@@ -170,6 +185,56 @@ const Dashboard = () => {
         </Table>
       );
     }
+
+    if (type === "faqs") {
+      return (
+        <Table headers={["No.", "Question", "Answer", "Action"]}>
+          {faqs.map((faq, inx) => (
+            <tr
+              key={faq.id}
+              className="hover:bg-[#1e1e1e] transition-all duration-300"
+            >
+              <td className="py-2 px-4">{inx + 1}</td>
+              <td className="py-2 px-4">{faq.questions}</td>
+              <td className="py-2 px-4">{faq.answers}</td>
+              <Link to={"/updatefaq"}>
+                <button
+                  onClick={() => edithandle(faq)}
+                  className="mr-2 mt-1.5 px-2 py-1 text-xl bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
+                >
+                  <TbEdit />
+                </button>
+              </Link>
+            </tr>
+          ))}
+        </Table>
+      );
+    }
+
+    if (type === "testimonial") {
+      return (
+        <Table headers={["No.", "Name", "Message", "Action"]}>
+          {testimonials.map((t, inx) => (
+            <tr
+              key={t.id}
+              className="hover:bg-[#1e1e1e] transition-all duration-300"
+            >
+              <td className="py-2 px-4">{inx + 1}</td>
+              <td className="py-2 px-4">{t.name}</td>
+              <td className="py-2 px-4">{t.message}</td>
+              <Link to={"/updatetestimonial"}>
+                <button
+                  onClick={() => edithandle(t)}
+                  className="mr-2 mt-1.5 px-2 py-1 text-xl bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
+                >
+                  <TbEdit />
+                </button>
+              </Link>
+            </tr>
+          ))}
+        </Table>
+      );
+    }
   };
 
   return (
@@ -186,7 +251,16 @@ const Dashboard = () => {
                   const label =
                     tab === "users"
                       ? `Users (${user.length})`
+                      : tab === "products"
+                      ? `Products (${products.length})`
+                      : tab === "orders"
+                      ? `Order (${orders.length})`
+                      : tab === "faqs"
+                      ? `Faqs (${faqs.length})`
+                      : tab === "testimonial"
+                      ? `Testimonial (${testimonials.length})`
                       : tab.charAt(0).toUpperCase() + tab.slice(1);
+
                   return (
                     <button
                       key={tab}
@@ -211,13 +285,16 @@ const Dashboard = () => {
                 ? user
                 : activeTab === "products"
                 ? products
-                : orders,
+                : activeTab === "orders"
+                ? orders
+                : activeTab === "faqs"
+                ? faqs
+                : testimonials,
               activeTab
             )}
           </div>
         </div>
 
-        {/* Confirmation Modal */}
         {showConfirmModal && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-[#1e1e1e] p-6 rounded-xl text-center max-w-sm w-full shadow-lg">
