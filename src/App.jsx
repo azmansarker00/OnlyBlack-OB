@@ -25,6 +25,8 @@ import Productinfo from "./pages/product info/Product_info";
 import Settings from "./pages/settings/Settings";
 import Services from "./pages/services/services";
 import Wishlist from "./pages/wishList/WishList";
+import FaqsUpdate from "./pages/Admin/Updates/FaqsUpdate";
+import TestimonialUpdate from "./pages/Admin/Updates/TestimonialUpdate";
 
 //Context
 import MyContext from "./context/data/MyContext";
@@ -87,6 +89,24 @@ const App = () => {
           element={
             <ForEditorOrAdmin>
               <Addproduct />
+            </ForEditorOrAdmin>
+          }
+        />
+
+        <Route
+          path="/updatetestimonial"
+          element={
+            <ForEditorOrAdmin>
+              <TestimonialUpdate />
+            </ForEditorOrAdmin>
+          }
+        />
+
+        <Route
+          path="/updatefaq"
+          element={
+            <ForEditorOrAdmin>
+              <FaqsUpdate />
             </ForEditorOrAdmin>
           }
         />
