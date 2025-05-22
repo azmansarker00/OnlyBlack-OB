@@ -133,14 +133,14 @@ const Dashboard = () => {
                 <td className="py-2 px-4">
                   <Link to={"/updateproducts"}>
                     <button
-                      onClick={() => edithandle(item)}
+                      onClick={() => edithandle(product)}
                       className="mr-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
                     >
                       Update
                     </button>
                   </Link>
                   <button
-                    onClick={() => deleteProduct(item)}
+                    onClick={() => deleteProduct(product)}
                     className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-all duration-300"
                   >
                     Delete

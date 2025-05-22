@@ -40,6 +40,15 @@ function Updateproducts() {
             />
 
             <InputField
+              label="originalPrice"
+              value={products.originalPrice}
+              onChange={(e) =>
+                setProducts({ ...products, originalPrice: e.target.value })
+              }
+              placeholder="Product original Price"
+            />
+
+            <InputField
               label="Image URL"
               value={products.imageUrl}
               onChange={(e) =>
