@@ -245,6 +245,33 @@ const MyState = (props) => {
     return () => unsubscribe && unsubscribe();
   }, []);
 
+  const [faq, setFaq] = useState({
+    questions: null,
+    answers: null,
+  });
+
+  const edithandleFaq = (item) => {
+    setFaq(item);
+    console.log(item);
+  };
+
+  const updateFaq = async () => {
+    setLoading(true);
+    try {
+      await setDoc(doc(fireDB, "faqs", faq.id), faq);
+      toast.success("Faq updated successfully!");
+      setTimeout(() => {
+        window.location.href = "/"; // or navigate to "/dashboard"
+      }, 800);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error updating FAQ:", error);
+      setLoading(false);
+    }
+  };
+
+  // Tesimonials
+
   const [testimonials, setTestimonials] = useState([]);
 
   const gettestimonialstData = () => {
@@ -271,7 +298,6 @@ const MyState = (props) => {
     const unsubscribe = gettestimonialstData();
     return () => unsubscribe && unsubscribe();
   }, []);
-
   return (
     <MyContext.Provider
       value={{
@@ -287,6 +313,10 @@ const MyState = (props) => {
         deleteProduct,
         edithandle,
         faqs,
+        faq,
+        setFaq,
+        edithandleFaq,
+        updateFaq,
         testimonials,
       }}
     >

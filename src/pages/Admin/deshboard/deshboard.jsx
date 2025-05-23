@@ -18,6 +18,7 @@ const Dashboard = () => {
     deleteProduct,
     edithandle,
     faqs,
+    edithandleFaq,
     testimonials,
   } = context;
   const userRules = rules;
@@ -195,7 +196,7 @@ const Dashboard = () => {
               <td className="py-2 px-4">{faq.answers}</td>
               <Link to={"/updatefaq"}>
                 <button
-                  onClick={() => edithandle(faq)}
+                  onClick={() => edithandleFaq(faq)}
                   className="mr-2 mt-1.5 px-2 py-1 text-xl bg-blue-500 text-white rounded hover:bg-blue-600 transition-all duration-300"
                 >
                   <TbEdit />
