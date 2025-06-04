@@ -1,11 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import myContext from "../../../context/data/MyContext";
 import { PlusCircle } from "lucide-react";
 import Layout from "../../../components/layout/Layout";
 
 function Updatefaq() {
   const context = useContext(myContext);
-  const { faq, setfaq, updateFaq } = context;
+  const { faq, updateFaq } = context;
+
+  const [localFaq, setLocalFaq] = useState({
+    questions: "",
+    answers: "",
+    id: null,
+  });
+
+  // Load faq from context into local state on mount
+  useEffect(() => {
+    if (faq) {
+      setLocalFaq(faq);
+    }
+  }, [faq]);
+
+  const handleUpdate = () => {
+    updateFaq(localFaq); // pass the updated FAQ to context update method
+  };
 
   return (
     <Layout>
@@ -13,32 +30,36 @@ function Updatefaq() {
         <div className="bg-[#161616] px-6 sm:px-10 py-10 rounded-2xl shadow-2xl w-full max-w-lg border border-gray-500">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-extrabold text-gray-400 tracking-wide">
-              Update Faq
+              Update FAQ
             </h1>
             <p className="text-gray-400 mt-1 text-sm">
-              Fill all the product details below
+              Fill all the FAQ details below
             </p>
           </div>
 
           <div className="space-y-4">
             <InputField
               label="Questions"
-              value={faq.questions}
-              onChange={(e) => setfaq({ ...faq, questions: e.target.value })}
+              value={localFaq.questions}
+              onChange={(e) =>
+                setLocalFaq({ ...localFaq, questions: e.target.value })
+              }
               placeholder="Enter question"
             />
             <InputField
               label="Answers"
-              value={faq.answers}
-              onChange={(e) => setfaq({ ...faq, answers: e.target.value })}
+              value={localFaq.answers}
+              onChange={(e) =>
+                setLocalFaq({ ...localFaq, answers: e.target.value })
+              }
               placeholder="Enter answer"
             />
             <button
-              onClick={updateFaq}
+              onClick={handleUpdate}
               className="bg-black text-gray-400 font-semibold w-full flex items-center justify-center gap-2 py-2.5 rounded-lg hover:bg-[#0a0a0a] cursor-pointer transition duration-300"
             >
               <PlusCircle className="w-5 h-5" />
-              Update Faq
+              Update FAQ
             </button>
           </div>
         </div>
