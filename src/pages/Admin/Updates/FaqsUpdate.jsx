@@ -68,7 +68,7 @@ function Updatefaq() {
   );
 }
 
-export default Updatefaq;
+export default Updatefaq  ;
 
 // Reusable InputField Component
 const InputField = ({ label, value, onChange, placeholder }) => (
